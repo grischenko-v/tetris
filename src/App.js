@@ -5,13 +5,27 @@ import './App.css';
 
 class App extends Component {
 
+  constructor(){
+  	super();
+  	this.sizeX = 10;
+  	this.sizeY = 20;
+  	
+  };
+
   createGrid(){
      let elems = [];
-     for(let i = 0; i < 200; i++)
-     	elems.push(<Element/>)
+     let xPos = 0;
+     let yPos = 0;
+     for(let i = 0; i < this.sizeX * this.sizeY; i++){
+     	elems.push(<Element posX = {xPos} posY = {yPos} key = {i}/>)     	
+        if(xPos < 9) xPos++;
+        else {
+        	xPos = 0;
+        	yPos++;
+        }     
+     }     
      return elems;
-
-  }
+  };
   	
   render() {
 
