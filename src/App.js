@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import Element from './Element/Element'
 import './App.css';
 
@@ -9,8 +8,12 @@ class App extends Component {
   	super();
   	this.sizeX = 10;
   	this.sizeY = 20;
-  	
+  	this.state = {
+  		grid: this.createGrid()
+  	};
+   
   };
+    
 
   createGrid(){
      let elems = [];
@@ -31,7 +34,7 @@ class App extends Component {
 
     return (
       <div className="field-container">
-        {this.createGrid()}
+        {this.state.grid}
       </div>
     );
   }
