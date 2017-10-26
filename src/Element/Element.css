@@ -1,12 +1,12 @@
 .element{
 	width: 30px;
 	height: 30px;
-	border: 1px solid #999;
+	border: 1px solid #666;
 	box-sizing: border-box;
 	display: inline-block;
 	margin: 0;
 	margin-top: -4px;
 }
 .dark{
-    background-color: #666;
+    background-color: #888;
    }
