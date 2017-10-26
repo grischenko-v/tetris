@@ -9,11 +9,32 @@ class App extends Component {
   	this.sizeX = 10;
   	this.sizeY = 20;
   	this.state = {
-  		grid: this.createGrid()
-  	};
-   
+  		grid: this.createGrid(),
+  		frameId: ""
+  	};    
+    this.start = this.start.bind(this);
+    this.stop = this.stop.bind(this);
+    this.updateGrid = this.updateGrid.bind(this);  
   };
     
+  start(){
+   if( !this.state.frameId ) {
+    this.setState({
+        frameId: window.requestAnimationFrame( this.updateGrid ),
+        isDie: false
+      });     
+     }
+  };
+
+ stop(){
+    window.cancelAnimationFrame( this.state.frameId );
+ };
+ 
+ updateGrid(){
+  this.setState({          
+    frameId: window.requestAnimationFrame( this.updateGrid )
+   }); 
+  };
 
   createGrid(){
      let elems = [];
