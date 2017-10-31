@@ -8,11 +8,12 @@ class App extends Component {
   	super();
   	this.frameCount = 0;
   	this.fps = 60;
+
   	this.sizeX = 10;
   	this.sizeY = 20;
   	this.state = {
   		newFigure: false,
-  		grid: this.createGrid(),
+  		grid: this.initGrid(),
   		frameId: ""
   	};    
     this.start = this.start.bind(this);
@@ -74,9 +75,8 @@ class App extends Component {
    return elems;
   };
 
- 
 
-  createGrid(){
+  initGrid(){
      let elems = [];
      let xPos = 0;
      let yPos = 0;
@@ -90,15 +90,30 @@ class App extends Component {
      }     
      return elems;
   };
-  	
-  render() {
+ 
+  indexToPosition(index){
+    let yFind = parseInt(index / 10);
+    let xFind = index - yFind * 10;
+    return {X: xFind, Y: yFind, index: xFind + "" + yFind};
+  };
 
-    return (
-      <div className="field-container">
-        {this.state.grid}
-      </div>
-    );
-  }
+  createGrid(){   
+   let elements = [];  
+   let temp;  
+   for(let i = 0; i < Math.pow(this.props.size, 2); i++){
+     temp = this.indexToPosition(i);    
+     elements.push(this.state.aliveMas[temp.index]);
+   }  
+   return elements;
+ };
+
+ render() {
+   return (
+     <div className="field-container">
+       {this.state.grid}
+     </div>
+   );
+ }
 }
 
 export default App;
