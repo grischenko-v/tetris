@@ -19,8 +19,7 @@ class App extends Component {
   	};    
     this.start = this.start.bind(this);
     this.stop = this.stop.bind(this);
-    this.animationloop = this.animationloop.bind(this);
-    this.updateGrid = this.updateGrid.bind(this);  
+    this.animationloop = this.animationloop.bind(this);  
     this.createGrid = this.createGrid.bind(this);      
   };    
   
@@ -46,7 +45,7 @@ class App extends Component {
     if(this.frameCount < this.fps) this.frameCount++;
     else{
          if(!this.state.currentFigure) this.createFigure();
-    	 //newGrid = this.updateGrid();     	   	  
+    	 else this.moveDown();  	   	  
     }
     this.setState({    
        grid:  newGrid,
@@ -55,35 +54,21 @@ class App extends Component {
  };
 
  createFigure(){
+ let figurePos = [];
+ let temp = this.indexToPosition(5);
+ figurePos.push(temp);
    this.hash["05"] = <Element posX = {0} posY = {5} key = {5} active = {true}/>;
    this.setState({    
-        currentFigure: this.hash["05"]
+        currentFigure: figurePos
     });
  };
 
- updateGrid(){ 
-   let elems = [];
-   let xPos = 0;
-   let yPos = 0;
-   for(let i = 0; i < this.sizeX * this.sizeY; i++){
-
-   	  if(!this.state.newFigure && xPos === 4 && yPos === 0){
-        elems.push(<Element posX = {xPos} posY = {yPos} key = {i} active = {true}/>)
-        this.setState({  
-          //  newFigure: true
-        });	
-   	  }
-      else elems.push(<Element posX = {xPos} posY = {yPos} key = {i}/>) 
-      
-      if(xPos < 9) xPos++;
-      else {
-       	xPos = 0;
-       	yPos++;
-       }     
-   }     
-   return elems;
-  };
-
+ moveDown(){
+   if(true){
+      this.hash[this.state.currentFigure.index] = <Element posX = {0} posY = {5} key = {5} active = {false}/>;
+     // console.log(this.state.currentFigure);
+   }
+ };
 
   initGrid(){
      let elems = [];
