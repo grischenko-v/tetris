@@ -8,13 +8,14 @@ class App extends Component {
   	super();
   	this.frameCount = 0;
   	this.fps = 60;
-
   	this.sizeX = 10;
   	this.sizeY = 20;
+  	this.hash = this.initGrid();
   	this.state = {
   		newFigure: false,
-  		grid: this.initGrid(),
-  		frameId: ""
+  		grid: this.hash,
+  		frameId: "",
+        currentFigure: ""
   	};    
     this.start = this.start.bind(this);
     this.stop = this.stop.bind(this);
@@ -44,11 +45,19 @@ class App extends Component {
  	let  newGrid = this.state.grid;
     if(this.frameCount < this.fps) this.frameCount++;
     else{
+         if(!this.state.currentFigure) this.createFigure();
     	 //newGrid = this.updateGrid();     	   	  
     }
     this.setState({    
        grid:  newGrid,
        frameId: window.requestAnimationFrame( this.animationloop )
+    });
+ };
+
+ createFigure(){
+   this.hash["05"] = <Element posX = {0} posY = {5} key = {5} active = {true}/>;
+   this.setState({    
+        currentFigure: this.hash["05"]
     });
  };
 
