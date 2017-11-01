@@ -19,9 +19,9 @@ class App extends Component {
     this.start = this.start.bind(this);
     this.stop = this.stop.bind(this);
     this.animationloop = this.animationloop.bind(this);
-    this.updateGrid = this.updateGrid.bind(this);    
-  };
-    
+    this.updateGrid = this.updateGrid.bind(this);  
+    this.createGrid = this.createGrid.bind(this);      
+  };    
   
   componentDidMount() {
     this.start();    
@@ -44,7 +44,7 @@ class App extends Component {
  	let  newGrid = this.state.grid;
     if(this.frameCount < this.fps) this.frameCount++;
     else{
-    	 newGrid = this.updateGrid();     	   	  
+    	 //newGrid = this.updateGrid();     	   	  
     }
     this.setState({    
        grid:  newGrid,
@@ -78,39 +78,35 @@ class App extends Component {
 
   initGrid(){
      let elems = [];
-     let xPos = 0;
-     let yPos = 0;
+     let temp;
      for(let i = 0; i < this.sizeX * this.sizeY; i++){
-     	elems.push(<Element posX = {xPos} posY = {yPos} key = {i} />)     	
-        if(xPos < 9) xPos++;
-        else {
-        	xPos = 0;
-        	yPos++;
-        }     
-     }     
+       temp = this.indexToPosition(i);
+       elems[temp.index] = (<Element posX = {temp.X} posY = {temp.Y} key = {i} />)     	
+     }       
      return elems;
   };
  
   indexToPosition(index){
-    let yFind = parseInt(index / 10);
-    let xFind = index - yFind * 10;
+    let xFind = parseInt(index / 20);
+    let yFind = index - xFind * 20;
     return {X: xFind, Y: yFind, index: xFind + "" + yFind};
   };
 
   createGrid(){   
    let elements = [];  
    let temp;  
-   for(let i = 0; i < Math.pow(this.props.size, 2); i++){
-     temp = this.indexToPosition(i);    
-     elements.push(this.state.aliveMas[temp.index]);
+   for(let i = 0; i < this.sizeX * this.sizeY; i++){
+     temp = this.indexToPosition(i);   
+     elements.push(this.state.grid[temp.index]);
    }  
    return elements;
  };
 
  render() {
+   const elements = this.createGrid();	
    return (
      <div className="field-container">
-       {this.state.grid}
+      {elements}
      </div>
    );
  }
