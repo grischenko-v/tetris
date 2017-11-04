@@ -15,12 +15,15 @@ class App extends Component {
   		newFigure: false,
   		grid: this.hash,
   		frameId: "",
-        currentFigure: ""
+        currentFigure: "",
+        value: true
   	};    
     this.start = this.start.bind(this);
     this.stop = this.stop.bind(this);
     this.animationloop = this.animationloop.bind(this);  
     this.createGrid = this.createGrid.bind(this);      
+    this.initGrid = this.initGrid.bind(this);  
+    
   };    
   
   componentDidMount() {
@@ -57,9 +60,10 @@ class App extends Component {
  createFigure(){
    let figurePos = [];
    let temp = this.indexToPosition(5);
-   figurePos.push(temp);   
-   console.log(123);
-   this.hash[temp.index] = <Element posX = {temp.X} posY = {temp.Y} key = {5} active = {true}/>;
+   figurePos.push(temp);  
+   this.hash[temp.index] = null;   
+   this.hash[temp.index] = true;
+   console.log(this.hash[temp.index]);
    this.setState({    
         currentFigure: figurePos
     });
@@ -68,15 +72,14 @@ class App extends Component {
  moveDown(){
    let temp;
    let figurePos = [];
-   if(true){
-   	  temp = (this.hash[this.state.currentFigure[0].index].props.posX + 1) + "" + this.hash[this.state.currentFigure[0].index].props.posY;
-   	  figurePos.push(temp);
-      console.log(temp);
-      this.hash[this.state.currentFigure[0].index] = <Element posX = {this.state.currentFigure[0].X} posY = {this.state.currentFigure[0].Y}  key = {5} active = {false}/>;
+   if(true){   
+      this.hash["05"] = false;
       
-      this.hash[temp] = <Element posX = {this.state.currentFigure[0].X + 1} posY = {this.state.currentFigure[0].Y}  key = {12313} active = {true}/>;
-      // this.hash[this.state.currentFigure[0].index].props.posX;
-    //  console.log(this.indexToPosition(figurePos[0]));
+      this.hash["15"] = true;
+      this.setState({
+      	currentFigure: figurePos 
+      });
+    
       
    }
  };
@@ -86,7 +89,7 @@ class App extends Component {
      let temp;
      for(let i = 0; i < this.sizeX * this.sizeY; i++){
        temp = this.indexToPosition(i);
-       elems[temp.index] = (<Element posX = {temp.X} posY = {temp.Y} key = {i} />)     	
+       elems[temp.index] = false;     	
      }       
      return elems;
   };
@@ -102,7 +105,8 @@ class App extends Component {
    let temp;  
    for(let i = 0; i < this.sizeX * this.sizeY; i++){
      temp = this.indexToPosition(i);   
-     elements.push(this.state.grid[temp.index]);
+
+     elements.push(<Element posX = {temp.X} posY = {temp.Y} key = {i} active = {this.state.grid[temp.index]}/>);
    }  
    return elements;
  };
