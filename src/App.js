@@ -70,17 +70,17 @@ class App extends Component {
  };
 
  moveDown(){
-   let temp;
+   let nexPos;
    let figurePos = [];
+   nexPos = this.indexToPosition((this.state.currentFigure[0].X + 1) * 10 + this.state.currentFigure[0].Y);
    if(true){   
-      this.hash["05"] = false;
-      
-      this.hash["15"] = true;
+      this.hash[this.state.currentFigure[0].index] = false;
+      console.log(nexPos);
+      this.hash[nexPos.index] = true;
+      figurePos.push(nexPos);
       this.setState({
       	currentFigure: figurePos 
-      });
-    
-      
+      });      
    }
  };
 
