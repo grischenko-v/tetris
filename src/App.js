@@ -71,8 +71,8 @@ class App extends Component {
 
     }
 
-    if(figurePos[0].X === undefined) return;
-
+   
+    if(e.key === "ArrowRight" || e.key === "ArrowLeft" || e.key === "ArrowDown" )
     this.setState({
       	currentFigure: figurePos,
       	newFigure: !(figurePos[0].X !== 19) 
