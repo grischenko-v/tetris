@@ -42,8 +42,10 @@ class App extends Component {
   _figureMove(e){
   	let nexPos;
   	let figurePos = [];
+  	if(!this.state.currentFigure) return;
     switch(e.key){
       case "ArrowRight":{
+      	if(this.state.currentFigure[0].Y + 1 > 9) return;
         nexPos = this.indexToPosition(this.state.currentFigure[0].X  * 10 + (this.state.currentFigure[0].Y + 1));
         this.hash[this.state.currentFigure[0].index] = false;     
         this.hash[nexPos.index] = true;
@@ -51,16 +53,27 @@ class App extends Component {
         break;
       }
       case "ArrowLeft":{
+      	if(this.state.currentFigure[0].Y - 1 < 0) return;
         nexPos = this.indexToPosition(this.state.currentFigure[0].X  * 10 + (this.state.currentFigure[0].Y - 1));
         this.hash[this.state.currentFigure[0].index] = false;     
         this.hash[nexPos.index] = true;
         figurePos.push(nexPos);
         break;
       }
-      case "ArrowDown":  console.log(e.key); break;
+      case "ArrowDown":  {
+
+      	if(this.state.currentFigure[0].X + 1 > 19) return;
+      	console.log(123);
+        nexPos = this.indexToPosition((this.state.currentFigure[0].X + 1) * 10 + this.state.currentFigure[0].Y );
+        this.hash[this.state.currentFigure[0].index] = false;     
+        this.hash[nexPos.index] = true;
+        figurePos.push(nexPos);
+        break;
+      }
     } 
     this.setState({
-      	currentFigure: figurePos 
+      	currentFigure: figurePos,
+      	newFigure: !(figurePos[0].X !== 19) 
     });   
   }
   
