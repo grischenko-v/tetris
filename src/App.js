@@ -102,12 +102,26 @@ class App extends Component {
     });
  };
 
+ creatRect(index){
+ 	let newIndex = index;
+ 	switch(index){
+      case 4 : newIndex =  5;  break;
+      case 5 : newIndex = 14; break;
+      case 14: newIndex = 15; break;    
+    }
+ 	return newIndex;
+ }
+
  createFigure(){
    let figurePos = [];
-   let temp = this.indexToPosition(5);
-   figurePos.push(temp);  
-   this.hash[temp.index] = null;   
-   this.hash[temp.index] = true; 
+   let defaultPos = 4;
+   let temp ;
+   for(let i =0; i <4; i ++){
+     temp = this.indexToPosition(defaultPos);
+     figurePos.push(temp);  
+     this.hash[temp.index] = true; 
+     defaultPos = this.creatRect(defaultPos);      
+   }
    this.setState({    
         currentFigure: figurePos,
         newFigure: false
