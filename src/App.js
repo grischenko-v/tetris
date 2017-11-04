@@ -15,8 +15,7 @@ class App extends Component {
   		newFigure: false,
   		grid: this.hash,
   		frameId: "",
-        currentFigure: "",
-        value: true
+        currentFigure: ""
   	};    
     this.start = this.start.bind(this);
     this.stop = this.stop.bind(this);
@@ -24,15 +23,15 @@ class App extends Component {
     this.createGrid = this.createGrid.bind(this);      
     this.initGrid = this.initGrid.bind(this);  
     
-  };    
-  
-  componentDidMount() {
-    this.start();    
-  }
+  }; 
 
   componentWillMount(){    
     document.addEventListener("keydown", this._figureMove.bind(this), false);  
   };
+
+  componentDidMount() {
+    this.start();    
+  }
 
   componentWillUnmount() {
     document.removeEventListener("keydown", this._figureMove.bind(this), false);  
@@ -68,10 +67,7 @@ class App extends Component {
         figurePos.push(nexPos);
         break;
       }
-
-    }
-
-   
+    }   
     if(e.key === "ArrowRight" || e.key === "ArrowLeft" || e.key === "ArrowDown" )
     this.setState({
       	currentFigure: figurePos,
