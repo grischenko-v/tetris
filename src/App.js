@@ -102,7 +102,7 @@ class App extends Component {
     });
  };
 
- creatRect(index){
+ createRect(index){
  	let newIndex = index;
  	switch(index){
       case 4 : newIndex =  5;  break;
@@ -120,7 +120,7 @@ class App extends Component {
      temp = this.indexToPosition(defaultPos);
      figurePos.push(temp);  
      this.hash[temp.index] = true; 
-     defaultPos = this.creatRect(defaultPos);      
+     defaultPos = this.createRect(defaultPos);      
    }
    this.setState({    
         currentFigure: figurePos,
@@ -128,24 +128,42 @@ class App extends Component {
     });
  };
 
+ getFigureMin(arr){
+    let max = 0;
+    for (var i = 0; i < arr.length; i++) {
+    	if(arr[i].X > max) max = arr[i].X;
+    }
+    return max;
+ }
+
  moveDown(){
    let nexPos;
    let figurePos = [];
-   nexPos = this.indexToPosition((this.state.currentFigure[0].X + 1) * 10 + this.state.currentFigure[0].Y);
-   if(nexPos.X < 20 && !this.hash[nexPos.index]){   
-      this.hash[this.state.currentFigure[0].index] = false;     
-      this.hash[nexPos.index] = true;
-      figurePos.push(nexPos);
-      this.setState({
-      	currentFigure: figurePos 
-      });      
-   }
-   else{
-   	  this.setState({
-      	currentFigure: "" 
-      });
-   }
- };
+   let maxXIndex = this.getFigureMin(this.state.currentFigure);
+   console.log(maxXIndex);
+
+   	  if(maxXIndex < 19 && !this.hash[(maxXIndex + 1) + ""]){  
+       for (let i = 0; i < this.state.currentFigure.length; i++) {         
+   	      nexPos = this.indexToPosition((this.state.currentFigure[i].X + 1) * 10 + this.state.currentFigure[i].Y);   
+
+          this.hash[this.state.currentFigure[i].index] = false;         
+          figurePos.push(nexPos);        
+       }
+       for (let i = 0; i < figurePos.length; i++) {
+       	  this.hash[figurePos[i].index] = true;
+       }
+
+       this.setState({
+      	  currentFigure: figurePos,
+      	  grid: this.hash,
+        });
+     }else{
+   	   this.setState({
+         currentFigure: "" 
+       });
+     }
+  
+  };
 
   initGrid(){
      let elems = [];
