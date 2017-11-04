@@ -30,6 +30,40 @@ class App extends Component {
     this.start();    
   }
 
+  componentWillMount(){    
+    document.addEventListener("keydown", this._figureMove.bind(this), false);  
+  };
+
+  componentWillUnmount() {
+    document.removeEventListener("keydown", this._figureMove.bind(this), false);  
+   
+  };
+
+  _figureMove(e){
+  	let nexPos;
+  	let figurePos = [];
+    switch(e.key){
+      case "ArrowRight":{
+        nexPos = this.indexToPosition(this.state.currentFigure[0].X  * 10 + (this.state.currentFigure[0].Y + 1));
+        this.hash[this.state.currentFigure[0].index] = false;     
+        this.hash[nexPos.index] = true;
+        figurePos.push(nexPos);
+        break;
+      }
+      case "ArrowLeft":{
+        nexPos = this.indexToPosition(this.state.currentFigure[0].X  * 10 + (this.state.currentFigure[0].Y - 1));
+        this.hash[this.state.currentFigure[0].index] = false;     
+        this.hash[nexPos.index] = true;
+        figurePos.push(nexPos);
+        break;
+      }
+      case "ArrowDown":  console.log(e.key); break;
+    } 
+    this.setState({
+      	currentFigure: figurePos 
+    });   
+  }
+  
   start(){
    if( !this.state.frameId ) {
     this.setState({
@@ -62,10 +96,10 @@ class App extends Component {
    let temp = this.indexToPosition(5);
    figurePos.push(temp);  
    this.hash[temp.index] = null;   
-   this.hash[temp.index] = true;
-   console.log(this.hash[temp.index]);
+   this.hash[temp.index] = true; 
    this.setState({    
-        currentFigure: figurePos
+        currentFigure: figurePos,
+        newFigure: false
     });
  };
 
@@ -73,14 +107,18 @@ class App extends Component {
    let nexPos;
    let figurePos = [];
    nexPos = this.indexToPosition((this.state.currentFigure[0].X + 1) * 10 + this.state.currentFigure[0].Y);
-   if(true){   
-      this.hash[this.state.currentFigure[0].index] = false;
-      console.log(nexPos);
+   if(nexPos.X < 20 && !this.hash[nexPos.index]){   
+      this.hash[this.state.currentFigure[0].index] = false;     
       this.hash[nexPos.index] = true;
       figurePos.push(nexPos);
       this.setState({
       	currentFigure: figurePos 
       });      
+   }
+   else{
+   	  this.setState({
+      	currentFigure: "" 
+      });
    }
  };
 
