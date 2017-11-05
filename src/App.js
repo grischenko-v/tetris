@@ -41,37 +41,46 @@ class App extends Component {
   _figureMove(e){
   	let nexPos;
   	let figurePos = [];
+    let maxXIndex;
+    let nextHash;   
+    let rightHash;
+
   	if(!this.state.currentFigure) return;
+  	maxXIndex = this.getFigureMax(this.state.currentFigure); 
+  	nextHash  = this.hash[this.indexToPosition((this.state.currentFigure[maxXIndex].X + 1) * 10 + this.state.currentFigure[maxXIndex].Y).index]; 
+    rightHash = 0;
     switch(e.key){
       case "ArrowRight":{
-      	nexPos = this.indexToPosition(this.state.currentFigure[0].X  * 10 + (this.state.currentFigure[0].Y + 1));
-      	if(this.state.currentFigure[0].Y + 1 > 9 || this.hash[nexPos.index] === true) return;        
-        this.hash[this.state.currentFigure[0].index] = false;     
-        this.hash[nexPos.index] = true;
-        figurePos.push(nexPos);
+        for (let i = 0; i < this.state.currentFigure.length; i++) {          	
+          nexPos = this.indexToPosition(this.state.currentFigure[i].X  * 10 + (this.state.currentFigure[i].Y + 1));
+      	  // if(this.state.currentFigure[i].Y + 1 > 9 || this.hash[nexPos.index] === true) continue;  
+      	  this.hash[this.state.currentFigure[i].index] = false;           
+          figurePos.push(nexPos);
+        } 
+        for (let i = 0; i < figurePos.length; i++) this.hash[figurePos[i].index] = true;        
         break;
       }
       case "ArrowLeft":{
-      	nexPos = this.indexToPosition(this.state.currentFigure[0].X  * 10 + (this.state.currentFigure[0].Y - 1));
+      	/*nexPos = this.indexToPosition(this.state.currentFigure[0].X  * 10 + (this.state.currentFigure[0].Y - 1));
       	if(this.state.currentFigure[0].Y - 1 < 0 || this.hash[nexPos.index] === true) return;       
         this.hash[this.state.currentFigure[0].index] = false;     
         this.hash[nexPos.index] = true;
         figurePos.push(nexPos);
-        break;
+        break;*/
       }
       case "ArrowDown":  {
-        nexPos = this.indexToPosition((this.state.currentFigure[0].X + 1) * 10 + this.state.currentFigure[0].Y );
+       /* nexPos = this.indexToPosition((this.state.currentFigure[0].X + 1) * 10 + this.state.currentFigure[0].Y );
       	if(this.state.currentFigure[0].X + 1 > 19 || this.hash[nexPos.index] === true ) return;       
         this.hash[this.state.currentFigure[0].index] = false;     
         this.hash[nexPos.index] = true;
         figurePos.push(nexPos);
-        break;
+        break;*/
       }
     }   
-    if(e.key === "ArrowRight" || e.key === "ArrowLeft" || e.key === "ArrowDown" )
+   if(e.key === "ArrowRight" || e.key === "ArrowLeft" || e.key === "ArrowDown" )
     this.setState({
       	currentFigure: figurePos,
-      	newFigure: !(figurePos[0].X !== 19) 
+      	newFigure: nextHash 
     });   
   }
   
@@ -104,7 +113,7 @@ class App extends Component {
 
  createRect(index){
  	let newIndex = index;
- 	switch(index){
+    switch(index){
       case 4 : newIndex =  5;  break;
       case 5 : newIndex = 14; break;
       case 14: newIndex = 15; break;    
