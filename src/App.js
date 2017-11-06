@@ -46,19 +46,19 @@ class App extends Component {
     let rightHash;
 
   	if(!this.state.currentFigure) return;
-  	maxXIndex = this.getFigureMax(this.state.currentFigure); 
-  	nextHash  = this.hash[this.indexToPosition((this.state.currentFigure[maxXIndex].X + 1) * 10 + this.state.currentFigure[maxXIndex].Y).index]; 
-    rightHash = 0;
+  	//maxXIndex = this.getFigureMax(this.state.currentFigure); 
+  	//nextHash  = this.hash[this.indexToPosition((this.state.currentFigure[maxXIndex].X + 1) * 10 + this.state.currentFigure[maxXIndex].Y).index]; 
+   // rightHash = 0;
     switch(e.key){
       case "ArrowRight":{
-        for (let i = 0; i < this.state.currentFigure.length; i++) {          	
+       /* for (let i = 0; i < this.state.currentFigure.length; i++) {          	
           nexPos = this.indexToPosition(this.state.currentFigure[i].X  * 10 + (this.state.currentFigure[i].Y + 1));
       	  // if(this.state.currentFigure[i].Y + 1 > 9 || this.hash[nexPos.index] === true) continue;  
       	  this.hash[this.state.currentFigure[i].index] = false;           
           figurePos.push(nexPos);
         } 
         for (let i = 0; i < figurePos.length; i++) this.hash[figurePos[i].index] = true;        
-        break;
+        break;*/
       }
       case "ArrowLeft":{
       	/*nexPos = this.indexToPosition(this.state.currentFigure[0].X  * 10 + (this.state.currentFigure[0].Y - 1));
@@ -103,7 +103,7 @@ class App extends Component {
     else{
     	this.frameCount = 0;
         if(!this.state.currentFigure) this.createFigure();
-    	else this.moveDown();  	   	  
+    	//else this.moveDown();  	   	  
     }
     this.setState({    
        grid:  newGrid,
@@ -111,26 +111,38 @@ class App extends Component {
     });
  };
 
- createRect(index){
- 	let newIndex = index;
-    switch(index){
-      case 4 : newIndex =  5;  break;
-      case 5 : newIndex = 14; break;
-      case 14: newIndex = 15; break;    
-    }
- 	return newIndex;
+ createRect(){
+    let points = [];
+    let xPos = 4;
+    let yPos = 0;
+    let name = "Rect";
+    let coords;    
+     for (let i = 0; i < 4; i++) {
+      coords = {};
+      switch(i){
+        case 0  :                 break;
+        case 1  : 
+        case 3  : xPos++;         break;
+        case 2  : xPos--; yPos++; break;            
+      }      
+      coords.num = i;
+      coords.position = this.indexToPosition(xPos  + yPos * 10);   
+      points.push(coords);
+     }        
+    return {
+    	 name: name,
+         points: points,
+         bottomIndex: [2,3]
+    };
  }
+  
 
  createFigure(){
-   let figurePos = [];
+   let figurePos;
    let defaultPos = 4;
    let temp ;
-   for(let i =0; i <4; i ++){
-     temp = this.indexToPosition(defaultPos);
-     figurePos.push(temp);  
-     this.hash[temp.index] = true; 
-     defaultPos = this.createRect(defaultPos);      
-   }
+   figurePos = this.createRect();  
+   for (let i = 0; i < figurePos.points.length; i++) this.hash[figurePos.points[i].position.index] = true;
    this.setState({    
         currentFigure: figurePos,
         newFigure: false
