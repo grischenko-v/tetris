@@ -161,11 +161,36 @@ class App extends Component {
     };
  }  
 
+ createLine(){
+   let points = [];
+    let xPos = 5;
+    let yPos = 0;
+    let name = "Line";
+    let coords;    
+     for (let i = 0; i < 4; i++) {
+      coords = {};
+      switch(i){
+        case 0  :         break;           
+        case 1  : 
+        case 2  : 
+        case 3  : yPos++; break;            
+      }      
+      coords.num = i;
+      coords.position = this.indexToPosition(xPos  + yPos * 10);   
+      points.push(coords);
+     }        
+    return {
+    	 name: name,
+         points: points,
+         bottomIndex: [3]
+    };
+ };
+
  createFigure(){
    let figurePos;
    let defaultPos = 4;
    let temp ;
-   figurePos = this.createRect();  
+   figurePos = this.createLine();  
    for (let i = 0; i < figurePos.points.length; i++) this.hash[figurePos.points[i].position.index] = true;
    this.setState({    
         currentFigure: figurePos,
