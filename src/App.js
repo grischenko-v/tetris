@@ -11,8 +11,7 @@ class App extends Component {
   	this.sizeX = 10;
   	this.sizeY = 20;
   	this.hash = this.initGrid();
-  	this.state = {
-  		newFigure: false,
+  	this.state = {  	
   		grid: this.hash,
   		frameId: "",
         currentFigure: ""
@@ -44,43 +43,69 @@ class App extends Component {
     let maxXIndex;
     let nextHash;   
     let rightHash;
+    
 
-  	if(!this.state.currentFigure) return;
-  	//maxXIndex = this.getFigureMax(this.state.currentFigure); 
-  	//nextHash  = this.hash[this.indexToPosition((this.state.currentFigure[maxXIndex].X + 1) * 10 + this.state.currentFigure[maxXIndex].Y).index]; 
-   // rightHash = 0;
+  	if(!this.state.currentFigure) return;  
     switch(e.key){
-      case "ArrowRight":{
-       /* for (let i = 0; i < this.state.currentFigure.length; i++) {          	
-          nexPos = this.indexToPosition(this.state.currentFigure[i].X  * 10 + (this.state.currentFigure[i].Y + 1));
-      	  // if(this.state.currentFigure[i].Y + 1 > 9 || this.hash[nexPos.index] === true) continue;  
-      	  this.hash[this.state.currentFigure[i].index] = false;           
-          figurePos.push(nexPos);
-        } 
-        for (let i = 0; i < figurePos.length; i++) this.hash[figurePos[i].index] = true;        
-        break;*/
+      case "ArrowRight":{            
+         let cantRight = false;
+         for (let i = 0; i < this.state.currentFigure.points.length; i++) 
+         	cantRight |= !((this.state.currentFigure.points[i].position.Y + 1) <= 9);
+             
+         if(!cantRight){
+           for (let i = 0; i < this.state.currentFigure.points.length; i++) {      
+            this.hash[this.state.currentFigure.points[i].position.index] = false;       
+            this.state.currentFigure.points[i].position  = this.indexToPosition(this.state.currentFigure.points[i].position.X  * 10 + (this.state.currentFigure.points[i].position.Y + 1));
+           } 
+           for (let i = 0; i < this.state.currentFigure.points.length; i++)  this.hash[this.state.currentFigure.points[i].position.index] = true;
+           this.setState({   	 
+              grid: this.hash,
+              createFigure: this.state.currentFigure
+            });
+         }
+        break;
       }
       case "ArrowLeft":{
-      	/*nexPos = this.indexToPosition(this.state.currentFigure[0].X  * 10 + (this.state.currentFigure[0].Y - 1));
-      	if(this.state.currentFigure[0].Y - 1 < 0 || this.hash[nexPos.index] === true) return;       
-        this.hash[this.state.currentFigure[0].index] = false;     
-        this.hash[nexPos.index] = true;
-        figurePos.push(nexPos);
-        break;*/
+      	let cantLeft = false;
+         for (let i = 0; i < this.state.currentFigure.points.length; i++) 
+         	cantLeft |= !((this.state.currentFigure.points[i].position.Y - 1) >= 0);
+
+         if(!cantLeft){
+           for (let i = 0; i < this.state.currentFigure.points.length; i++) {      
+            this.hash[this.state.currentFigure.points[i].position.index] = false;       
+            this.state.currentFigure.points[i].position  = this.indexToPosition(this.state.currentFigure.points[i].position.X  * 10 + (this.state.currentFigure.points[i].position.Y - 1));
+           } 
+           for (let i = 0; i < this.state.currentFigure.points.length; i++)  this.hash[this.state.currentFigure.points[i].position.index] = true;
+           this.setState({   	 
+              grid: this.hash,
+              createFigure: this.state.currentFigure
+            });
+         }
+        break;
       }
       case "ArrowDown":  {
-       /* nexPos = this.indexToPosition((this.state.currentFigure[0].X + 1) * 10 + this.state.currentFigure[0].Y );
-      	if(this.state.currentFigure[0].X + 1 > 19 || this.hash[nexPos.index] === true ) return;       
-        this.hash[this.state.currentFigure[0].index] = false;     
-        this.hash[nexPos.index] = true;
-        figurePos.push(nexPos);
-        break;*/
+      let cantDown = false;
+         for (let i = 0; i < this.state.currentFigure.points.length; i++) 
+         	cantDown |= !((this.state.currentFigure.points[i].position.X + 1) < 20);
+         	             
+         if(!cantDown){
+           for (let i = 0; i < this.state.currentFigure.points.length; i++) {      
+            this.hash[this.state.currentFigure.points[i].position.index] = false;       
+            this.state.currentFigure.points[i].position  = this.indexToPosition((this.state.currentFigure.points[i].position.X + 1) * 10 + this.state.currentFigure.points[i].position.Y );
+           } 
+           for (let i = 0; i < this.state.currentFigure.points.length; i++)  this.hash[this.state.currentFigure.points[i].position.index] = true;
+           this.setState({   	 
+              grid: this.hash,
+              createFigure: this.state.currentFigure
+            });
+         }
+        break;
       }
     }   
    if(e.key === "ArrowRight" || e.key === "ArrowLeft" || e.key === "ArrowDown" )
     this.setState({
-      	currentFigure: figurePos,
-      	newFigure: nextHash 
+       
+      	
     });   
   }
   
@@ -160,12 +185,22 @@ class App extends Component {
     return index;
  }
 
+  getFigureMaxRight(arr){
+    let index = 0;
+    let max   = 0;
+    for (var i = 0; i < arr.length; i++) {
+      if(arr[i].position.X > max){
+       max = arr[i].position.X;
+       index = i; 
+      } 
+    }
+    return index;
+ }
+
  moveDown(){
-   let nexPos;
-   let figurePos = [];
+   let nexPos;   
    let maxXIndex = this.state.currentFigure.points[this.getFigureMax(this.state.currentFigure.points)].position.X;  
    let cantMove = false; 
-
    for (let i = 0; i < this.state.currentFigure.bottomIndex.length; i++) {
    	  let bottomIndex = this.state.currentFigure.bottomIndex[i];
    	  let xBottomPos = this.state.currentFigure.points[bottomIndex].position.X;
