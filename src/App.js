@@ -179,7 +179,8 @@ class App extends Component {
     return {
     	 name: name,
          points: points,
-         bottomIndex: [3]
+         bottomIndex: [3],
+         rotateState: rotateState
     };
  };
 
@@ -191,8 +192,7 @@ class App extends Component {
    for (let i = 0; i < figurePos.points.length; i++) this.hash[figurePos.points[i].position.index] = true;
    this.setState({    
         currentFigure: figurePos,
-        newFigure: false,
-        rotateState: rotateState
+        newFigure: false
     });
  };
 
@@ -201,21 +201,41 @@ class App extends Component {
      switch(this.state.currentFigure.name){
        case "Rect" : break;
        case "Line" :{                    
-       	 let basePointX =  this.state.currentFigure.points[0].position.X;
-       	 let basePointY =  this.state.currentFigure.points[0].position.Y - 1;
-         for (let i = 0; i <  this.state.currentFigure.points.length; i++) {
-          this.state.currentFigure.points[i].position.X = basePointX;
-          this.state.currentFigure.points[i].position.Y = basePointY;
-          basePointY++;
-         }
-         
-         break;
-       }
-     }
-      this.setState({   	 
+       	 console.log(this.state.currentFigure.rotateState);
+         if(this.state.currentFigure.rotateState === 0){
+           let basePointX =  this.state.currentFigure.points[0].position.X;
+           let basePointY =  this.state.currentFigure.points[0].position.Y - 2;
+           for (let i = 0; i <  this.state.currentFigure.points.length; i++) {
+            this.state.currentFigure.points[i].position.X = basePointX;
+            this.state.currentFigure.points[i].position.Y = basePointY;
+            basePointY++;
+           }
+           this.state.currentFigure.rotateState = 1;
+           this.setState({   	 
               grid: this.hash,
               createFigure: this.state.currentFigure
             });
+           break;
+         }
+         if(this.state.currentFigure.rotateState === 1){
+           let basePointX =  this.state.currentFigure.points[0].position.X - 2;
+           let basePointY =  this.state.currentFigure.points[0].position.Y + 2;
+           for (let i = 0; i <  this.state.currentFigure.points.length; i++) {
+            this.state.currentFigure.points[i].position.X = basePointX;
+            this.state.currentFigure.points[i].position.Y = basePointY;
+            basePointX++;
+           }
+           this.state.currentFigure.rotateState = 0;
+           this.setState({   	 
+              grid: this.hash,
+              createFigure: this.state.currentFigure
+            });
+           break;
+         }
+      
+       }
+     }
+      
     }
   };
 
