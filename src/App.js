@@ -26,6 +26,7 @@ class App extends Component {
 
   componentWillMount(){    
     document.addEventListener("keydown", this._figureMove.bind(this), false);  
+    document.addEventListener("keydown", this._rotateFigure.bind(this), false);  
   };
 
   componentDidMount() {
@@ -34,7 +35,7 @@ class App extends Component {
 
   componentWillUnmount() {
     document.removeEventListener("keydown", this._figureMove.bind(this), false);  
-   
+    document.removeEventListener("keydown", this._rotateFigure.bind(this), false); 
   };
 
   _figureMove(e){
@@ -101,13 +102,8 @@ class App extends Component {
          }
         break;
       }
-    }   
-   if(e.key === "ArrowRight" || e.key === "ArrowLeft" || e.key === "ArrowDown" )
-    this.setState({
-       
-      	
-    });   
-  }
+    }     
+  };
   
   start(){
    if( !this.state.frameId ) {
@@ -197,6 +193,28 @@ class App extends Component {
         newFigure: false
     });
  };
+
+ _rotateFigure(e){ 	
+ 	if (e.keyCode === 32 && this.state.currentFigure) {
+     switch(this.state.currentFigure.name){
+       case "Rect" : break;
+       case "Line" :{                    
+       	 let basePointX =  this.state.currentFigure.points[0].position.X;
+       	 let basePointY =  this.state.currentFigure.points[0].position.Y - 1;
+         for (let i = 0; i <  this.state.currentFigure.points.length; i++) {
+          this.state.currentFigure.points[i].position.X = basePointX;
+          this.state.currentFigure.points[i].position.Y = basePointY;
+          basePointY++;
+         }
+         break;
+       }
+     }
+      this.setState({   	 
+              grid: this.hash,
+              createFigure: this.state.currentFigure
+            });
+    }
+  };
 
  getFigureMax(arr){
     let index = 0;
