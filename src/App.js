@@ -162,6 +162,7 @@ class App extends Component {
     let xPos = 5;
     let yPos = 0;
     let name = "Line";
+    let rotateState = 0;
     let coords;    
      for (let i = 0; i < 4; i++) {
       coords = {};
@@ -190,7 +191,8 @@ class App extends Component {
    for (let i = 0; i < figurePos.points.length; i++) this.hash[figurePos.points[i].position.index] = true;
    this.setState({    
         currentFigure: figurePos,
-        newFigure: false
+        newFigure: false,
+        rotateState: rotateState
     });
  };
 
@@ -206,6 +208,7 @@ class App extends Component {
           this.state.currentFigure.points[i].position.Y = basePointY;
           basePointY++;
          }
+         
          break;
        }
      }
