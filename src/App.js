@@ -189,7 +189,7 @@ class App extends Component {
    let figurePos;
    let defaultPos = 4;
    let temp ;
-   figurePos = this.createLine();  
+   figurePos = this.createRect();  
    for (let i = 0; i < figurePos.points.length; i++) this.hash[figurePos.points[i].position.index] = true;
    this.setState({    
         currentFigure: figurePos,
@@ -248,20 +248,22 @@ class App extends Component {
 
  isFigurePoint(point){
    let figure = this.state.currentFigure;
-   for(let i = 0; figure.points.length; i++){
-   	 if(figure.points[i].position.index === point.index) return true;
+   //console.log(figure);  
+   for(let i = 0; i < figure.points.length; i++){
+     console.log(i + "  " + this.state.currentFigure.points[i]);
+   	 if(this.state.currentFigure.points[i].position.index === point.index) return true;
    }
    return false;
  };
  
- cantMoveDown(){
+ canMoveDown(){
    let curX;
    let curY; 
    let nextPos;
    for (var i = 0; i < this.state.currentFigure.points.length; i++) {
  	 curX = this.state.currentFigure.points[i].position.X;
      curY = this.state.currentFigure.points[i].position.Y;
-     nextPos = this.indexToPosition((curX + 1) * 10 + curY);
+     nextPos = this.indexToPosition((curX + 1) * 10 + curY);   
      if (this.hash[nextPos.index] && !this.isFigurePoint(nextPos)) return false;
   }
   return true;
@@ -296,17 +298,7 @@ class App extends Component {
    let maxXIndex = this.state.currentFigure.points[this.getFigureMax(this.state.currentFigure.points)].position.X;  
    let cantMove = false;
    let newFigure =  this.state.currentFigure;
-   for (let i = 0; i < this.state.currentFigure.bottomIndex.length; i++) {
-   	  let bottomIndex = this.state.currentFigure.bottomIndex[i];
-   	  let xBottomPos = this.state.currentFigure.points[bottomIndex].position.X;
-   	  let yBottomPos = this.state.currentFigure.points[bottomIndex].position.Y;
-      let nextHash = this.indexToPosition((xBottomPos + 1) * 10 + yBottomPos);
-      
-      console.log(this.state.currentFigure.bottomIndex[i]);
-      console.log(this.hash[nextHash.index]);
-      cantMove |= this.hash[nextHash.index];
-   }
-   if(maxXIndex< 19 && !cantMove){  
+   if(this.canMoveDown() && maxXIndex< 19){  
       for (let i = 0; i < this.state.currentFigure.points.length; i++) {            
          this.hash[newFigure.points[i].position.index] = false;
          newFigure.points[i].position  = this.indexToPosition((this.state.currentFigure.points[i].position.X + 1) * 10 + this.state.currentFigure.points[i].position.Y);
