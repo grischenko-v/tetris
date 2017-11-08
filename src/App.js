@@ -146,13 +146,13 @@ class App extends Component {
     let name = "Line";
     let rotateState = 0;
     let coords;    
-     for (let i = 0; i < 2; i++) {
+     for (let i = 0; i < 4; i++) {
       coords = {};
       switch(i){
         case 0  :         break;           
         case 1  : yPos++; break;
-       // case 2  : 
-       // case 3  : yPos++; break;  
+        case 2  : 
+        case 3  : yPos++; break;  
        default: break;          
       }      
       console.log("i: " + i);
@@ -169,7 +169,7 @@ class App extends Component {
 
  createFigure(){
    let figurePos;  
-   figurePos = this.createRect();  
+   figurePos = this.createLine();//this.createRect();  
    for (let i = 0; i < figurePos.points.length; i++) this.hash[figurePos.points[i].position.index] = true;
    this.setState({    
         currentFigure: figurePos,
@@ -184,7 +184,7 @@ class App extends Component {
        case "Rect" : break;
        case "Line" :{                    
        	 console.log(newFigure.rotateState);
-        // for (let i = 0; i < newFigure.points.length; i++)  this.hash[newFigure.points[i].position.index] = false;
+         for (let i = 0; i < newFigure.points.length; i++)  this.hash[newFigure.points[i].position.index] = false;
          if(newFigure.rotateState === 0){
            let basePointX =  newFigure.points[0].position.X;
            let basePointY =  newFigure.points[0].position.Y;
@@ -193,9 +193,8 @@ class App extends Component {
             newFigure.points[i].position.Y = basePointY;
             basePointY++;
            }
-           newFigure.rotateState = 1;
-        //   newFigure.bottomIndex = [0, 1];
-          // for (let i = 0; i < newFigure.points.length; i++)  this.hash[newFigure.points[i].position.index] = true;
+           newFigure.rotateState = 1;       
+           for (let i = 0; i < newFigure.points.length; i++)  this.hash[newFigure.points[i].position.index] = true;
            this.setState({   	 
               grid: this.hash,
               createFigure: newFigure
@@ -210,9 +209,8 @@ class App extends Component {
             newFigure.points[i].position.Y = basePointY;
             basePointX++;
            }
-           newFigure.rotateState = 0;
-           //this.state.currentFigure.bottomIndex = [3];
-          // for (let i = 0; i < newFigure.points.length; i++)  this.hash[newFigure.points[i].position.index] = true;
+           newFigure.rotateState = 0;          
+           for (let i = 0; i < newFigure.points.length; i++)  this.hash[newFigure.points[i].position.index] = true;
            this.setState({   	 
               grid: this.hash,
               createFigure: newFigure
