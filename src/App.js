@@ -44,6 +44,7 @@ class App extends Component {
     switch(e.key){
       case "ArrowRight":{            
          let cantRight = false;
+
          for (let i = 0; i < newFigure.points.length; i++) 
          	cantRight |= !((newFigure.points[i].position.Y + 1) <= 9);
              
@@ -78,22 +79,8 @@ class App extends Component {
          }
         break;
       }
-      case "ArrowDown":  {
-      let cantDown = false;
-         for (let i = 0; i < newFigure.points.length; i++) 
-         	cantDown |= !((newFigure.points[i].position.X + 1) < 20);
-         	             
-         if(!cantDown){
-           for (let i = 0; i < newFigure.points.length; i++) {      
-            this.hash[newFigure.points[i].position.index] = false;       
-            newFigure.points[i].position  = this.indexToPosition((newFigure.points[i].position.X + 1) * 10 + newFigure.points[i].position.Y );
-           } 
-           for (let i = 0; i < newFigure.points.length; i++)  this.hash[newFigure.points[i].position.index] = true;
-           this.setState({   	 
-              grid: this.hash,
-              createFigure: newFigure
-            });
-         }
+      case "ArrowDown":  {      
+        this.moveDown();
         break;
       }
       default: break;
