@@ -135,13 +135,12 @@ class App extends Component {
      }        
     return {
     	 name: name,
-         points: points,
-         bottomIndex: [2,3]
+         points: points        
     };
  }  
 
  createLine(){
-   let points = [];
+    let points = [];
     let xPos = 5;
     let yPos = 0;
     let name = "Line";
@@ -163,8 +162,7 @@ class App extends Component {
      }        
     return {
     	 name: name,
-         points: points,
-         bottomIndex: [1],
+         points: points,         
          rotateState: rotateState
     };
  };
