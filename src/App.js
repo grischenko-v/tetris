@@ -252,8 +252,20 @@ class App extends Component {
    	 if(figure.points[i].position.index === point.index) return true;
    }
    return false;
- }
-
+ };
+ 
+ cantMoveDown(){
+   let curX;
+   let curY; 
+   let nextPos;
+   for (var i = 0; i < this.state.currentFigure.points.length; i++) {
+ 	 curX = this.state.currentFigure.points[i].position.X;
+     curY = this.state.currentFigure.points[i].position.Y;
+     nextPos = this.indexToPosition((curX + 1) * 10 + curY);
+     if (this.hash[nextPos.index] && !this.isFigurePoint(nextPos)) return false;
+  }
+  return true;
+ };
 
  getFigureMax(arr){
     let index = 0;
