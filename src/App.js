@@ -296,6 +296,22 @@ class App extends Component {
     }
   };
 
+  getAverageX(arr){
+  	let sum = 0;
+  	for (var i = 0; i < arr.length; i++) 
+  		sum += arr[i].points.position.X;
+
+  	return Math.floor(sum/arr.length);
+  }
+  
+  getAverageY(arr){
+  	let sum = 0;
+  	for (var i = 0; i < arr.length; i++) 
+  		sum += arr[i].points.position.Y;
+
+  	return Math.floor(sum/arr.length);
+  }
+
   initGrid(){
      let elems = [];
      let temp;
