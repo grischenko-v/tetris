@@ -181,47 +181,42 @@ class App extends Component {
 
  _rotateFigure(e){ 	
  	if (e.keyCode === 32 && this.state.currentFigure) {
- 		let newFigure = this.state.currentFigure;
-     switch(this.state.currentFigure.name){
-       case "Rect" : break;
-       case "Line" :{                    
-       	 console.log(newFigure.rotateState);
-         for (let i = 0; i < newFigure.points.length; i++)  this.hash[newFigure.points[i].position.index] = false;
-         if(newFigure.rotateState === 0){
-           let basePointX =  newFigure.points[0].position.X - 1;
-           let basePointY =  newFigure.points[0].position.Y - 2;
-           for (let i = 0; i <  newFigure.points.length; i++) {
-            newFigure.points[i].position.X = basePointX;
-            newFigure.points[i].position.Y = basePointY;
-            basePointY++;
-           }
-           newFigure.rotateState = 1;       
-           for (let i = 0; i < newFigure.points.length; i++)  this.hash[newFigure.points[i].position.index] = true;
-         }
-         else if(newFigure.rotateState === 1){
-           let basePointX =  newFigure.points[0].position.X + 1;
-           let basePointY =  newFigure.points[0].position.Y + 2;
-           for (let i = 0; i <  newFigure.points.length; i++) {
-            newFigure.points[i].position.X = basePointX;
-            newFigure.points[i].position.Y = basePointY;
-            basePointX++;
-           }
-           newFigure.rotateState = 0;          
-           for (let i = 0; i < newFigure.points.length; i++)  this.hash[newFigure.points[i].position.index] = true;
+  	  let newFigure = this.state.currentFigure;
+      let x0 = this.getAverageX(newFigure.points);
+      let y0 = this.getAverageY(newFigure.points);    
          
-         }
+      let newXMas = [];
+      let newYMas = [];
 
-         this.setState({   	 
-              grid: this.hash,
-              createFigure: newFigure
-            });
-         break;
-       }
-       default: break;
-     }
+      for (let i = 0; i < newFigure.points.length; i++) {
+        let newX = x0 - newFigure.points[i].position.Y + y0;
+        let newY = y0 + newFigure.points[i].position.X - x0;
+        if(newX > 9 || newX < 0 || newY > 19 || newY < 0 
+           || this.hash[this.indexToPosition(newX * 10 + newY)]) return ;
+        else{
+         newXMas.push(newX);
+         newYMas.push(newY);
+        }
+      }
+
+      for (let i = 0; i < this.state.currentFigure.points.length; i++) {
+    	this.hash[this.state.currentFigure.points[i].position.index] = false; 
+      }
+        
+      for(let i = 0; i < newFigure.points.length; i++)
+       	newFigure.points[i].position = this.indexToPosition(newXMas[i] * 10 + newYMas[i]);
       
-    }
-  };
+      for (let i = 0; i < newFigure.points.length; i++) {
+    	this.hash[newFigure.points[i].position.index] = true; 
+      }    
+ 
+      this.setState({   	 
+            grid: this.hash,
+            createFigure: newFigure
+        });
+      
+     }
+ };
 
  isFigurePoint(point){
    let figure = this.state.currentFigure;  
@@ -285,21 +280,12 @@ class App extends Component {
          currentFigure: "" 
        });
    }
- };
-
-  updateHash(figure){
-    for (let i = 0; i < this.state.currentFigure.points.length; i++) {
-    	this.hash[this.state.currentFigure.points[i].position.index] = false; 
-    }
-    for (let i = 0; i < figure.points.length; i++) {
-    	this.hash[figure.points[i].position.index] = true; 
-    }
-  };
+ };  
 
   getAverageX(arr){
   	let sum = 0;
   	for (var i = 0; i < arr.length; i++) 
-  		sum += arr[i].points.position.X;
+  		sum += arr[i].position.X;
 
   	return Math.floor(sum/arr.length);
   }
@@ -307,7 +293,7 @@ class App extends Component {
   getAverageY(arr){
   	let sum = 0;
   	for (var i = 0; i < arr.length; i++) 
-  		sum += arr[i].points.position.Y;
+  		sum += arr[i].position.Y;
 
   	return Math.floor(sum/arr.length);
   }
