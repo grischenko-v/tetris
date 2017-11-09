@@ -191,7 +191,7 @@ class App extends Component {
       for (let i = 0; i < newFigure.points.length; i++) {
         let newX = x0 - newFigure.points[i].position.Y + y0;
         let newY = y0 + newFigure.points[i].position.X - x0;
-        if(newX > 9 || newX < 0 || newY > 19 || newY < 0 
+        if(newX > 19 || newX < 0 || newY > 9 || newY < 0 
            || this.hash[this.indexToPosition(newX * 10 + newY)]) return ;
         else{
          newXMas.push(newX);
