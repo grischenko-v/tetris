@@ -46,9 +46,10 @@ class App extends Component {
          let cantRight = false;
 
          for (let i = 0; i < newFigure.points.length; i++){ 
+         	let newPos = this.indexToPosition(newFigure.points[i].position.X * 10 + newFigure.points[i].position.Y + 1);
          	cantRight |= !((newFigure.points[i].position.Y + 1) <= 9) 
-            cantRight |= this.hash[this.indexToPosition(newFigure.points[i].position.X * 10 + (newFigure.points[i].position.Y +1))];
-            } 
+            cantRight |= this.hash[newPos.index];
+         } 
 
          if(!cantRight){
            for (let i = 0; i < newFigure.points.length; i++) {      
@@ -65,9 +66,11 @@ class App extends Component {
       }
       case "ArrowLeft":{
       	let cantLeft = false;
-         for (let i = 0; i < newFigure.points.length; i++) 
+         for (let i = 0; i < newFigure.points.length; i++){
+         	let newPos = this.indexToPosition(newFigure.points[i].position.X * 10 + newFigure.points[i].position.Y - 1);
          	cantLeft |= !((newFigure.points[i].position.Y - 1) >= 0);
-
+            cantLeft |= this.hash[newPos.index];          
+         }         
          if(!cantLeft){
            for (let i = 0; i < newFigure.points.length; i++) {      
             this.hash[newFigure.points[i].position.index] = false;       
@@ -139,7 +142,7 @@ class App extends Component {
     	 name: name,
          points: points        
     };
- }  
+ };
 
  createLine(){
     let points = [];
@@ -199,17 +202,15 @@ class App extends Component {
         }
       }
 
-      for (let i = 0; i < this.state.currentFigure.points.length; i++) {
-    	this.hash[this.state.currentFigure.points[i].position.index] = false; 
-      }
+      for (let i = 0; i < this.state.currentFigure.points.length; i++)
+    	this.hash[this.state.currentFigure.points[i].position.index] = false;       
         
       for(let i = 0; i < newFigure.points.length; i++)
        	newFigure.points[i].position = this.indexToPosition(newXMas[i] * 10 + newYMas[i]);
       
-      for (let i = 0; i < newFigure.points.length; i++) {
+      for (let i = 0; i < newFigure.points.length; i++) 
     	this.hash[newFigure.points[i].position.index] = true; 
-      }    
- 
+      
       this.setState({   	 
             grid: this.hash,
             createFigure: newFigure
@@ -248,7 +249,7 @@ class App extends Component {
       } 
     }
     return index;
- }
+ };
 
   getFigureMaxRight(arr){
     let index = 0;
@@ -260,7 +261,7 @@ class App extends Component {
       } 
     }
     return index;
- }
+ };
 
  moveDown(){   
    let maxXIndex = this.state.currentFigure.points[this.getFigureMax(this.state.currentFigure.points)].position.X;     
@@ -288,7 +289,7 @@ class App extends Component {
   		sum += arr[i].position.X;
 
   	return Math.floor(sum/arr.length);
-  }
+  };
   
   getAverageY(arr){
   	let sum = 0;
@@ -296,7 +297,7 @@ class App extends Component {
   		sum += arr[i].position.Y;
 
   	return Math.floor(sum/arr.length);
-  }
+  };
 
   initGrid(){
      let elems = [];
@@ -332,7 +333,7 @@ class App extends Component {
       {elements}
      </div>
    );
- }
+ };
 }
 
 export default App;
