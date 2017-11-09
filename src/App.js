@@ -51,7 +51,7 @@ class App extends Component {
             cantRight |= this.hash[newPos.index];
          } 
 
-         if(!cantRight){
+         if(this.canMoveRight()){
            for (let i = 0; i < newFigure.points.length; i++) {      
             this.hash[newFigure.points[i].position.index] = false;       
             newFigure.points[i].position  = this.indexToPosition(newFigure.points[i].position.X  * 10 + (newFigure.points[i].position.Y + 1));
@@ -71,7 +71,7 @@ class App extends Component {
          	cantLeft |= !((newFigure.points[i].position.Y - 1) >= 0);
             cantLeft |= this.hash[newPos.index];          
          }         
-         if(!cantLeft){
+         if(this.canMoveLeft()){
            for (let i = 0; i < newFigure.points.length; i++) {      
             this.hash[newFigure.points[i].position.index] = false;       
             newFigure.points[i].position  = this.indexToPosition(newFigure.points[i].position.X  * 10 + (newFigure.points[i].position.Y - 1));
@@ -238,6 +238,33 @@ class App extends Component {
   }
   return true;
  };
+
+ canMoveLeft(){
+   let curX;
+   let curY; 
+   let nextPos;
+   for (var i = 0; i < this.state.currentFigure.points.length; i++) {
+ 	 curX = this.state.currentFigure.points[i].position.X;
+     curY = this.state.currentFigure.points[i].position.Y;
+     nextPos = this.indexToPosition(curX  * 10 + curY - 1);   
+     if (this.hash[nextPos.index] && !this.isFigurePoint(nextPos)) return false;
+  }
+  return true;
+ };
+
+ canMoveRight(){
+   let curX;
+   let curY; 
+   let nextPos;
+   for (var i = 0; i < this.state.currentFigure.points.length; i++) {
+ 	 curX = this.state.currentFigure.points[i].position.X;
+     curY = this.state.currentFigure.points[i].position.Y;
+     nextPos = this.indexToPosition(curX  * 10 + curY + 1);   
+     if (this.hash[nextPos.index] && !this.isFigurePoint(nextPos)) return false;
+  }
+  return true;
+ };
+
 
  getFigureMax(arr){
     let index = 0;
