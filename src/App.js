@@ -214,10 +214,10 @@ class App extends Component {
      for (let i = 0; i < 4; i++) {
       coords = {};
       switch(i){
-        case 0  :          break;           
-        case 1  : yPos++;  break;
-        case 2  : xPos--;  break;
-        case 3  : yPos--; xPos = xPos + 2;        break;  
+        case 0  :                          break;           
+        case 1  : yPos++;                  break;
+        case 2  : xPos--;                  break;
+        case 3  : yPos--; xPos = xPos + 2; break;  
        default: break;          
       }     
       coords.num = i;
@@ -239,10 +239,10 @@ class App extends Component {
      for (let i = 0; i < 4; i++) {
       coords = {};
       switch(i){
-        case 0  :          break;           
-        case 1  : yPos++;  break;
-        case 2  : xPos++;  break;
-        case 3  : yPos--; xPos = xPos - 2;        break;  
+        case 0  :                          break;           
+        case 1  : yPos++;                  break;
+        case 2  : xPos++;                  break;
+        case 3  : yPos--; xPos = xPos - 2; break;  
        default: break;          
       }     
       coords.num = i;
@@ -267,7 +267,7 @@ class App extends Component {
         case 0  :                 break;           
         case 1  : xPos++;         break;
         case 2  : xPos--; yPos++; break;
-        case 3  : yPos--; xPos--;        break;  
+        case 3  : yPos--; xPos--; break;  
        default: break;          
       }     
       coords.num = i;
@@ -282,7 +282,18 @@ class App extends Component {
 
  createFigure(){
    let figurePos;  
-   figurePos = this.createEp();//this.createRect();  
+
+   switch(Math.floor(Math.random() * 7)){
+     case 0 : figurePos = this.createRect();   break;      
+     case 1 : figurePos = this.createLine();   break;    
+     case 2 : figurePos = this.createGRight(); break; 
+     case 3 : figurePos = this.createGLeft();  break; 
+     case 4 : figurePos = this.createZRight(); break; 
+     case 5 : figurePos = this.createZLeft();  break;
+     case 6 : figurePos = this.createEp();     break; 
+     default: break; 
+   };
+  
    for (let i = 0; i < figurePos.points.length; i++) this.hash[figurePos.points[i].position.index] = true;
    this.setState({    
         currentFigure: figurePos,
@@ -483,7 +494,7 @@ class App extends Component {
     let yFind = index - xFind * 10;
     return {X: xFind, Y: yFind, index: xFind + "" + yFind};
   };
-
+ 
   createGrid(){   
    let elements = [];  
    let temp;  
