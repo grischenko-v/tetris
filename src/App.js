@@ -134,8 +134,7 @@ class App extends Component {
     let points = [];
     let xPos = 5;
     let yPos = 0;
-    let name = "Line";
-    let rotateState = 0;
+    let name = "Line";   
     let coords;    
      for (let i = 0; i < 4; i++) {
       coords = {};
@@ -160,8 +159,7 @@ class App extends Component {
     let points = [];
     let xPos = 5;
     let yPos = 0;
-    let name = "Line";
-    let rotateState = 0;
+    let name = "Line";   
     let coords;    
      for (let i = 0; i < 4; i++) {
       coords = {};
@@ -186,8 +184,7 @@ class App extends Component {
     let points = [];
     let xPos = 5;
     let yPos = 0;
-    let name = "Line";
-    let rotateState = 0;
+    let name = "Line"; 
     let coords;    
      for (let i = 0; i < 4; i++) {
       coords = {};
@@ -212,8 +209,7 @@ class App extends Component {
     let points = [];
     let xPos = 5;
     let yPos = 0;
-    let name = "Line";
-    let rotateState = 0;
+    let name = "Line";  
     let coords;    
      for (let i = 0; i < 4; i++) {
       coords = {};
@@ -239,7 +235,6 @@ class App extends Component {
     let xPos = 5;
     let yPos = 0;
     let name = "Line";
-    let rotateState = 0;
     let coords;    
      for (let i = 0; i < 4; i++) {
       coords = {};
@@ -264,8 +259,7 @@ class App extends Component {
     let points = [];
     let xPos = 5;
     let yPos = 0;
-    let name = "Line";
-    let rotateState = 0;
+    let name = "Line";    
     let coords;    
      for (let i = 0; i < 4; i++) {
       coords = {};
@@ -295,8 +289,6 @@ class App extends Component {
         newFigure: false
     });
  };
-
-
  
  chechGameEnd(){
     let curLine = [];
@@ -464,7 +456,7 @@ class App extends Component {
   getAverageX(arr){
   	let sum = 0;
   	for (var i = 0; i < arr.length; i++) 
-  		sum += arr[i].position.X;
+  		sum += (arr[i].position.X + 1);
 
   	return Math.floor(sum/arr.length);
   };
@@ -472,8 +464,7 @@ class App extends Component {
   getAverageY(arr){
   	let sum = 0;
   	for (var i = 0; i < arr.length; i++) 
-  		sum += arr[i].position.Y;
-
+  		sum += (arr[i].position.Y + 1);
   	return Math.floor(sum/arr.length);
   };
 
