@@ -152,14 +152,143 @@ class App extends Component {
      }        
     return {
     	 name: name,
-         points: points,         
-         rotateState: rotateState
+         points: points        
+    };
+ };
+  
+  createGRight(){
+    let points = [];
+    let xPos = 5;
+    let yPos = 0;
+    let name = "Line";
+    let rotateState = 0;
+    let coords;    
+     for (let i = 0; i < 4; i++) {
+      coords = {};
+      switch(i){
+        case 0  :                 break;           
+        case 1  : xPos++;         break;
+        case 2  : xPos--; yPos++; break;
+        case 3  : yPos++;         break;  
+       default: break;          
+      }     
+      coords.num = i;
+      coords.position = this.indexToPosition(xPos  + yPos * 10);   
+      points.push(coords);
+     }        
+    return {
+    	 name: name,
+         points: points        
+    };
+ }; 
+
+  createGLeft(){
+    let points = [];
+    let xPos = 5;
+    let yPos = 0;
+    let name = "Line";
+    let rotateState = 0;
+    let coords;    
+     for (let i = 0; i < 4; i++) {
+      coords = {};
+      switch(i){
+        case 0  :                 break;           
+        case 1  : xPos--;         break;
+        case 2  : xPos++; yPos++; break;
+        case 3  : yPos++;         break;  
+       default: break;          
+      }     
+      coords.num = i;
+      coords.position = this.indexToPosition(xPos  + yPos * 10);   
+      points.push(coords);
+     }        
+    return {
+    	 name: name,
+         points: points        
+    };
+ }; 
+
+ createZRight(){
+    let points = [];
+    let xPos = 5;
+    let yPos = 0;
+    let name = "Line";
+    let rotateState = 0;
+    let coords;    
+     for (let i = 0; i < 4; i++) {
+      coords = {};
+      switch(i){
+        case 0  :          break;           
+        case 1  : yPos++;  break;
+        case 2  : xPos--;  break;
+        case 3  : yPos--; xPos = xPos + 2;        break;  
+       default: break;          
+      }     
+      coords.num = i;
+      coords.position = this.indexToPosition(xPos  + yPos * 10);   
+      points.push(coords);
+     }        
+    return {
+    	 name: name,
+         points: points        
+    };
+ };
+
+ createZLeft(){
+    let points = [];
+    let xPos = 5;
+    let yPos = 0;
+    let name = "Line";
+    let rotateState = 0;
+    let coords;    
+     for (let i = 0; i < 4; i++) {
+      coords = {};
+      switch(i){
+        case 0  :          break;           
+        case 1  : yPos++;  break;
+        case 2  : xPos++;  break;
+        case 3  : yPos--; xPos = xPos - 2;        break;  
+       default: break;          
+      }     
+      coords.num = i;
+      coords.position = this.indexToPosition(xPos  + yPos * 10);   
+      points.push(coords);
+     }        
+    return {
+    	 name: name,
+         points: points        
+    };
+ };
+ 
+ createEp(){
+    let points = [];
+    let xPos = 5;
+    let yPos = 0;
+    let name = "Line";
+    let rotateState = 0;
+    let coords;    
+     for (let i = 0; i < 4; i++) {
+      coords = {};
+      switch(i){
+        case 0  :                 break;           
+        case 1  : xPos++;         break;
+        case 2  : xPos--; yPos++; break;
+        case 3  : yPos--; xPos--;        break;  
+       default: break;          
+      }     
+      coords.num = i;
+      coords.position = this.indexToPosition(xPos  + yPos * 10);   
+      points.push(coords);
+     }        
+    return {
+    	 name: name,
+         points: points        
     };
  };
 
  createFigure(){
    let figurePos;  
-   figurePos = this.createLine();//this.createRect();  
+   figurePos = this.createEp();//this.createRect();  
    for (let i = 0; i < figurePos.points.length; i++) this.hash[figurePos.points[i].position.index] = true;
    this.setState({    
         currentFigure: figurePos,
