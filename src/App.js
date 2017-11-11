@@ -97,7 +97,8 @@ class App extends Component {
     else{
     	this.frameCount = 0;
         if(!this.state.currentFigure) this.createFigure();
-    	else this.moveDown();  	   	  
+        else this.moveDown();
+        console.log(this.checkGameEnd());  	   	  
     }
     this.setState({    
        grid:  newGrid,
@@ -301,36 +302,38 @@ class App extends Component {
     });
  };
  
- chechGameEnd(){
+ checkGameEnd(){
     let curLine = [];
     let counter = 0;
     let linesChecked = 0;
     for (let i = this.sizeX * this.sizeY; i > 0; i--) {
-      if(counter > 9){
+      if(counter > 10){
         counter = 0;
         linesChecked++;
         curLine = [];
       }
 
       counter++;
-
+     
       let position = this.indexToPosition(i);
-
-      if(this.hash[position.index]) curLine.push(position);
+      if(this.hash[position.index]){
+          curLine.push(position);      
+      } 
+    
       if(curLine.length > 9){
          for (let j = 0; j < curLine.length; j++) {
-           this.hash[curLine[i].index] = false;
+           this.hash[curLine[j].index] = false;          
          }
-         for (let k = position.X * 10; k > 0; k++) {
+         for (let k = position.X * 10; k > 0; k--) {
          	let newPos = this.indexToPosition((k + 10));
+            let temp = this.hash[this.indexToPosition(k).index];
+
          	this.hash[this.indexToPosition(k).index] = false;
-         	this.hash[newPos.index] = true; 
-         }
+         	if(temp)this.hash[newPos.index] = true; 
+         }      
         break; 
       }
-
     }
-
     return linesChecked;
  };
 
