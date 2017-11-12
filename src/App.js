@@ -93,12 +93,17 @@ class App extends Component {
  
  animationloop(){
  	let  newGrid = this.hash;
-    if(this.frameCount < this.fps) this.frameCount++;
+    let f = 0;
+    if(this.frameCount < this.fps) {
+      this.frameCount++;        
+    }
     else{
-    	this.frameCount = 0;
+    	this.frameCount = 0;      
+        while(f < 19) f = this.checkGameEnd();      
         if(!this.state.currentFigure) this.createFigure();
-        else this.moveDown();
-        console.log(this.checkGameEnd());  	   	  
+        else{
+         this.moveDown();      
+        }  	   	  
     }
     this.setState({    
        grid:  newGrid,
@@ -306,8 +311,8 @@ class App extends Component {
     let curLine = [];
     let counter = 0;
     let linesChecked = 0;
-    for (let i = this.sizeX * this.sizeY; i > 0; i--) {
-      if(counter > 10){
+    for (let i = 0; i < this.sizeX * this.sizeY; i++) {
+      if(counter > 9){
         counter = 0;
         linesChecked++;
         curLine = [];
@@ -324,13 +329,13 @@ class App extends Component {
          for (let j = 0; j < curLine.length; j++) {
            this.hash[curLine[j].index] = false;          
          }
-         for (let k = position.X * 10; k > 0; k--) {
+        /* for (let k = position.X * 10; k > 0; k--) {
          	let newPos = this.indexToPosition((k + 10));
             let temp = this.hash[this.indexToPosition(k).index];
 
          	this.hash[this.indexToPosition(k).index] = false;
-         	if(temp)this.hash[newPos.index] = true; 
-         }      
+         	if(temp && !this.isFigurePoint(temp))this.hash[newPos.index] = true; 
+         }*/  
         break; 
       }
     }
