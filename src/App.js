@@ -99,7 +99,13 @@ class App extends Component {
     }
     else{
     	this.frameCount = 0;      
-        while(f < 19) f = this.checkGameEnd();      
+        
+        while(f < 19){
+          f = this.checkFullLine();          
+          console.log(f);
+         
+        }   
+
         if(!this.state.currentFigure) this.createFigure();
         else{
          this.moveDown();      
@@ -307,10 +313,11 @@ class App extends Component {
     });
  };
  
- checkGameEnd(){
+ checkFullLine(){
     let curLine = [];
     let counter = 0;
     let linesChecked = 0;
+    let newHash = this.hash;
     for (let i = 0; i < this.sizeX * this.sizeY; i++) {
       if(counter > 9){
         counter = 0;
@@ -329,17 +336,37 @@ class App extends Component {
          for (let j = 0; j < curLine.length; j++) {
            this.hash[curLine[j].index] = false;          
          }
-        /* for (let k = position.X * 10; k > 0; k--) {
-         	let newPos = this.indexToPosition((k + 10));
-            let temp = this.hash[this.indexToPosition(k).index];
-
-         	this.hash[this.indexToPosition(k).index] = false;
-         	if(temp && !this.isFigurePoint(temp))this.hash[newPos.index] = true; 
-         }*/  
+         newHash = this.moveAllDown(linesChecked);
+         console.log(newHash);        
         break; 
       }
     }
+    this.hash = newHash;
+    this.setState({   	 
+        grid: this.hash
+    });
+
     return linesChecked;
+ };
+
+ moveAllDown(row){
+   let newHash = {};
+   let nextPos, curPos;
+   console.log("all move");
+   for (var i = 0; i < this.sizeX * this.sizeY; i++) {
+   	 let temp = this.indexToPosition(i);
+   	 newHash[temp.index] = false;
+   	}
+   for (let i = 0; i < this.sizeX * row; i++) {
+     curPos = this.indexToPosition(i);
+     nextPos = this.indexToPosition(i + 10);  
+     if (this.hash[curPos.index]) {
+      newHash[nextPos.index] = true;
+     }
+     else newHash[nextPos.index] = false;
+   } 
+    
+   return newHash;
  };
 
  _rotateFigure(e){ 	
