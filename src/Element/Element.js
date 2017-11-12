@@ -11,7 +11,8 @@ class Element extends Component {
   render() {  	
     return (
       <div className = {`element ${this.props.active ? "dark" : ""}`}>
-       
+         {this.posX}   
+         {this.posY}
       </div>
     );
   }
