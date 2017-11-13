@@ -100,13 +100,17 @@ class App extends Component {
     else{
     	this.frameCount = 0;      
         
-        while(f < 19){
+        
+
+        if(!this.state.currentFigure){ 
+             while(f < 19){
           f = this.checkFullLine();          
           console.log(f);
          
-        }   
+        } 
 
-        if(!this.state.currentFigure) this.createFigure();
+        	this.createFigure();
+        }
         else{
          this.moveDown();      
         }  	   	  
@@ -337,36 +341,39 @@ class App extends Component {
            this.hash[curLine[j].index] = false;          
          }
          newHash = this.moveAllDown(linesChecked);
+         this.hash = newHash;
+       
          console.log(newHash);        
-        break; 
+         break; 
       }
     }
-    this.hash = newHash;
+   // this.hash = newHash;
     this.setState({   	 
         grid: this.hash
     });
-
     return linesChecked;
  };
 
  moveAllDown(row){
    let newHash = {};
    let nextPos, curPos;
-   console.log("all move");
-   for (var i = 0; i < this.sizeX * this.sizeY; i++) {
-   	 let temp = this.indexToPosition(i);
-   	 newHash[temp.index] = false;
-   	}
-   for (let i = 0; i < this.sizeX * row; i++) {
-     curPos = this.indexToPosition(i);
-     nextPos = this.indexToPosition(i + 10);  
-     if (this.hash[curPos.index]) {
-      newHash[nextPos.index] = true;
-     }
-     else newHash[nextPos.index] = false;
-   } 
-    
-   return newHash;
+  
+   for (let  j = 0; j < this.sizeY - row; j++) {
+       console.log("all move");
+      for (var i = 0; i < this.sizeX * this.sizeY; i++) {
+     	let temp = this.indexToPosition(i);
+   	    newHash[temp.index] = false;
+   	  }   		
+      for (let i = 0; i < this.sizeX * this.sizeY ; i++) {
+        curPos = this.indexToPosition(i);
+        nextPos = this.indexToPosition(i + 10);  
+        if (this.hash[curPos.index]) {
+          newHash[nextPos.index] = true;
+        }
+        else newHash[nextPos.index] = false;
+      }
+     //this.hash = newHash;
+   }    return newHash;
  };
 
  _rotateFigure(e){ 	
