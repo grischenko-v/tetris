@@ -10,6 +10,4 @@
 ###### - HTML5, CSS3
 ##
 #### Browsers support
-###### - Chrome
-###### - FF
-###### - IE11
+###### - Only Chrome!!!
