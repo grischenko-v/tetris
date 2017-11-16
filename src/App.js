@@ -41,8 +41,8 @@ class App extends Component {
   _figureMove(e){ 
     let newFigure = this.state.currentFigure;
   	if(!this.state.currentFigure) return;  
-    switch(e.key){
-      case "ArrowRight":{            
+    switch(e.keyCode){
+      case 	39:{            
         if(this.canMoveRight()){
           for (let i = 0; i < newFigure.points.length; i++) {      
             this.hash[newFigure.points[i].position.index] = false;       
@@ -56,7 +56,7 @@ class App extends Component {
         }
         break;
       }
-      case "ArrowLeft":{      	       
+      case 	37:{      	       
         if(this.canMoveLeft()){
          for (let i = 0; i < newFigure.points.length; i++) {      
            this.hash[newFigure.points[i].position.index] = false;       
@@ -70,7 +70,7 @@ class App extends Component {
         }
         break;
       }
-      case "ArrowDown":  {      
+      case 40:  {      
         this.moveDown();
         break;
       }
@@ -105,7 +105,7 @@ class App extends Component {
         //  while(f < 19){
             f = this.checkFullLine();          
             console.log(f);     
-            if(f > 0) this.moveAllDown(f);    
+          this.moveAllDown(f);    
         //  }
           this.createFigure();
         }
@@ -296,8 +296,8 @@ class App extends Component {
 
  createFigure(){
    let figurePos;  
-    figurePos = this.createRect(); 
-   /*switch(Math.floor(Math.random() * 7)){
+   figurePos = this.createRect(); 
+   switch(Math.floor(Math.random() * 7)){
      case 0 : figurePos = this.createRect();   break;      
      case 1 : figurePos = this.createLine();   break;    
      case 2 : figurePos = this.createGRight(); break; 
@@ -306,7 +306,7 @@ class App extends Component {
      case 5 : figurePos = this.createZLeft();  break;
      case 6 : figurePos = this.createEp();     break; 
      default: break; 
-   };*/
+   };
   
    for (let i = 0; i < figurePos.points.length; i++) this.hash[figurePos.points[i].position.index] = true;
    this.setState({    
@@ -352,14 +352,16 @@ class App extends Component {
 
  moveAllDown(lines){
    let newHash = {};
-   let nextPos, curPos;         
-   for (let i = 0; i < this.sizeX * this.sizeY; i++) {
+   let nextPos, curPos;  
+   if(lines === 0) return;    
+   console.log(lines);    
+   for (let i = 0; i < this.sizeX * (this.sizeY - lines); i++) {
      let temp = this.indexToPosition(i);
    	 newHash[temp.index] = false;
    } 		
    for (let i = 0; i < this.sizeX * (this.sizeY - lines); i++) {
      curPos = this.indexToPosition(i);
-     nextPos = this.indexToPosition(i + 20);  
+     nextPos = this.indexToPosition(i + 10 * lines);  
      if (this.hash[curPos.index] && this.hash[nextPos.index] !== undefined) {
         newHash[nextPos.index] = true;        
      }
