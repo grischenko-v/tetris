@@ -343,42 +343,28 @@ class App extends Component {
          
          this.setState({   	 
            grid: this.hash
-          });           
+          });     
         
-      }
-     
+      }     
     }    
     return fullLines;
  };
 
  moveAllDown(lines){
    let newHash = {};
-   let nextPos, curPos;
-  
-
-          
-      for (let i = 0; i < this.sizeX * this.sizeY; i++) {
-     	let temp = this.indexToPosition(i);
-   	    newHash[temp.index] = false;
-   	  } 		
-      for (let i = 0; i < this.sizeX * (this.sizeY - lines); i++) {
-        curPos = this.indexToPosition(i);
-        nextPos = this.indexToPosition(i + 20);  
-        //console.log(curPos.index);
-        //nextPos = this.indexToPosition((curPos.X + 2) * 10 + curPos.Y);
-    
-        if (this.hash[curPos.index] && this.hash[nextPos.index] !== undefined) {
-        	
-          //this.hash[curPos.index] = false;
-          newHash[nextPos.index] = true;
-             console.log(nextPos.index + " nextPos.index ");
-         console.log(curPos.index  + " curPos.index");
-         
-        }
-      }
-
-      this.hash = newHash;
-      console.log(this.hash);   
+   let nextPos, curPos;         
+   for (let i = 0; i < this.sizeX * this.sizeY; i++) {
+     let temp = this.indexToPosition(i);
+   	 newHash[temp.index] = false;
+   } 		
+   for (let i = 0; i < this.sizeX * (this.sizeY - lines); i++) {
+     curPos = this.indexToPosition(i);
+     nextPos = this.indexToPosition(i + 20);  
+     if (this.hash[curPos.index] && this.hash[nextPos.index] !== undefined) {
+        newHash[nextPos.index] = true;        
+     }
+   }
+   this.hash = newHash;    
  };
 
  _rotateFigure(e){ 	
