@@ -105,7 +105,7 @@ class App extends Component {
         //  while(f < 19){
             f = this.checkFullLine();          
             console.log(f);     
-          this.moveAllDown(f);    
+         // this.moveAllDown(f);    
         //  }
           this.createFigure();
         }
@@ -319,10 +319,11 @@ class App extends Component {
     let curLine = [];
     let counter = 0;
     let fullLines = 0;
+    let lineNum = 0;
     for (let i = 0; i < this.sizeX * this.sizeY; i++) {
       if(counter > 9){
         counter = 0;
-       
+        lineNum++;  
         curLine = [];
       }
 
@@ -334,11 +335,13 @@ class App extends Component {
       } 
     
       if(curLine.length > 9){
+        this.moveAllDown(0);  
         
-        console.log(123); 
         for (let j = 0; j < curLine.length; j++) {
           this.hash[curLine[j].index] = false;          
         }
+
+
          fullLines++; 
          
          this.setState({   	 
@@ -353,8 +356,8 @@ class App extends Component {
  moveAllDown(lines){
    let newHash = {};
    let nextPos, curPos;  
-   if(lines === 0) return;    
-   console.log(lines);    
+   ///if(lines === 0) return;    
+   console.log("move");    
    for (let i = 0; i < this.sizeX * (this.sizeY - lines); i++) {
      let temp = this.indexToPosition(i);
    	 newHash[temp.index] = false;
