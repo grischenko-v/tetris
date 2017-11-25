@@ -16,6 +16,7 @@ class App extends Component {
   		grid: this.hash,
   		frameId: "",
         currentFigure: "",
+        nextFigure: "",
         result: 0
   	};    
     this.start = this.start.bind(this);
@@ -102,7 +103,7 @@ class App extends Component {
     }
     else{
     	this.frameCount = 0;                
-
+         //console.log(this.state.nextFigure);
         if(!this.state.currentFigure){   
           f = this.checkFullLine();
           result += f * 100;          
@@ -295,22 +296,40 @@ class App extends Component {
     };
  };
 
- createFigure(){
-   let figurePos;  
-   figurePos = this.createRect(); 
+ getRandomFigure(){
+   let figure;  
    switch(Math.floor(Math.random() * 7)){
-     case 0 : figurePos = this.createRect();   break;      
-     case 1 : figurePos = this.createLine();   break;    
-     case 2 : figurePos = this.createGRight(); break; 
-     case 3 : figurePos = this.createGLeft();  break; 
-     case 4 : figurePos = this.createZRight(); break; 
-     case 5 : figurePos = this.createZLeft();  break;
-     case 6 : figurePos = this.createEp();     break; 
+     case 0 : figure = this.createRect();   break;      
+     case 1 : figure = this.createLine();   break;    
+     case 2 : figure = this.createGRight(); break; 
+     case 3 : figure = this.createGLeft();  break; 
+     case 4 : figure = this.createZRight(); break; 
+     case 5 : figure = this.createZLeft();  break;
+     case 6 : figure = this.createEp();     break; 
      default: break; 
    };  
+
+   return figure;
+ };
+
+ createFigure(){
+   let figurePos;  
+   let nextFigurePos;
+   
+   if(!this.state.newFigure){
+     figurePos = this.getRandomFigure();
+     nextFigurePos = this.getRandomFigure();
+   }
+   else{
+    figurePos = nextFigurePos;
+    nextFigurePos = this.getRandomFigure();
+   }
+   
    for (let i = 0; i < figurePos.points.length; i++) this.hash[figurePos.points[i].position.index] = true;
+   
    this.setState({    
         currentFigure: figurePos,
+        nextFigure:  nextFigurePos,
         newFigure: false
     });
  };
@@ -548,7 +567,7 @@ class App extends Component {
      <div className="field-container">
       {elements}      
      </div>
-     <Results result = {this.state.result} />
+     <Results result = {this.state.result} nextFigure = {this.state.nextFigure}/>
      </div>
    );
  };
