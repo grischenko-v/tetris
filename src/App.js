@@ -98,15 +98,11 @@ class App extends Component {
       this.frameCount++;        
     }
     else{
-    	this.frameCount = 0;      
-                
+    	this.frameCount = 0;                
 
-        if(!this.state.currentFigure){ 
-        //  while(f < 19){
-            f = this.checkFullLine();          
-            console.log(f);     
-         // this.moveAllDown(f);    
-        //  }
+        if(!this.state.currentFigure){   
+          f = this.checkFullLine();          
+          this.moveAllDown(f);      
           this.createFigure();
         }
         else{
@@ -306,8 +302,7 @@ class App extends Component {
      case 5 : figurePos = this.createZLeft();  break;
      case 6 : figurePos = this.createEp();     break; 
      default: break; 
-   };
-  
+   };  
    for (let i = 0; i < figurePos.points.length; i++) this.hash[figurePos.points[i].position.index] = true;
    this.setState({    
         currentFigure: figurePos,
@@ -332,22 +327,16 @@ class App extends Component {
       let position = this.indexToPosition(i);
       if(this.hash[position.index]){
           curLine.push(position);      
-      } 
-    
-      if(curLine.length > 9){
-        this.moveAllDown(0);  
-        
+      }     
+      if(curLine.length > 9){        
         for (let j = 0; j < curLine.length; j++) {
           this.hash[curLine[j].index] = false;          
-        }
-
-
+        }        
          fullLines++; 
          
          this.setState({   	 
            grid: this.hash
-          });     
-        
+          });          
       }     
     }    
     return fullLines;
@@ -355,9 +344,11 @@ class App extends Component {
 
  moveAllDown(lines){
    let newHash = {};
-   let nextPos, curPos;  
-   ///if(lines === 0) return;    
-   console.log("move");    
+   let nextPos, curPos;       
+      for (let i = 0; i < this.sizeX * (this.sizeY); i++) {
+     let temp = this.indexToPosition(i);
+   	 newHash[temp.index] = this.hash[temp.index];
+   } 
    for (let i = 0; i < this.sizeX * (this.sizeY - lines); i++) {
      let temp = this.indexToPosition(i);
    	 newHash[temp.index] = false;
@@ -369,7 +360,8 @@ class App extends Component {
         newHash[nextPos.index] = true;        
      }
    }
-   this.hash = newHash;    
+   this.hash = newHash;
+
  };
 
  _rotateFigure(e){ 	
