@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Element from './Element/Element'
+import Results from './Results/Results'
 import './App.css';
 
 class App extends Component {
@@ -539,8 +540,11 @@ class App extends Component {
  render() {
    const elements = this.createGrid();	
    return (
+   	<div className="main">
      <div className="field-container">
-      {elements}
+      {elements}      
+     </div>
+     <Results/>
      </div>
    );
  };
