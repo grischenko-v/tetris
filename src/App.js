@@ -15,7 +15,8 @@ class App extends Component {
   	this.state = {  	
   		grid: this.hash,
   		frameId: "",
-        currentFigure: ""
+        currentFigure: "",
+        result: 0
   	};    
     this.start = this.start.bind(this);
     this.stop = this.stop.bind(this);
@@ -95,6 +96,7 @@ class App extends Component {
  animationloop(){
  	let  newGrid = this.hash;
     let f = 0;
+    let result = this.state.result;
     if(this.frameCount < this.fps) {
       this.frameCount++;        
     }
@@ -102,7 +104,8 @@ class App extends Component {
     	this.frameCount = 0;                
 
         if(!this.state.currentFigure){   
-          f = this.checkFullLine();          
+          f = this.checkFullLine();
+          result += f * 100;          
           this.moveAllDown(f);      
           this.createFigure();
         }
@@ -112,6 +115,7 @@ class App extends Component {
     }
     this.setState({    
        grid:  newGrid,
+       result: result,
        frameId: window.requestAnimationFrame( this.animationloop )
     });
  };
@@ -544,7 +548,7 @@ class App extends Component {
      <div className="field-container">
       {elements}      
      </div>
-     <Results/>
+     <Results result = {this.state.result} />
      </div>
    );
  };
