@@ -17,7 +17,8 @@ class App extends Component {
   		frameId: "",
         currentFigure: "",
         nextFigure: "",
-        result: 0
+        result: 0,
+        gameEnd: false
   	};    
     this.start = this.start.bind(this);
     this.stop = this.stop.bind(this);
@@ -43,7 +44,7 @@ class App extends Component {
 
   _figureMove(e){ 
     let newFigure = this.state.currentFigure;
-  	if(!this.state.currentFigure) return;  
+  	if(!this.state.currentFigure || this.state.gameEnd) return;  
     switch(e.keyCode){
       case 	39:{            
         if(this.canMoveRight()){
@@ -99,7 +100,8 @@ class App extends Component {
     let f = 0;
     let frameId;
     let result = this.state.result;
-    frameId = window.requestAnimationFrame( this.animationloop );
+    frameId = this.state.gameEnd ? window.cancelAnimationFrame( this.state.frameId ) : window.requestAnimationFrame( this.animationloop );
+  
     if(this.frameCount < this.fps) {
       this.frameCount++;        
     }
@@ -112,10 +114,12 @@ class App extends Component {
           result += f * 100;          
           this.moveAllDown(f);      
           this.createFigure();
+          if(this.state.gameEnd) return;
           if(!this.canMoveDown()){
-          	console.log("Game End");
-         //   frameId = window.cancelAnimationFrame( this.state.frameId );
-          
+          	console.log("Game End");           
+            this.setState({    
+               gameEnd: true
+              });
           }
         }
         else{
