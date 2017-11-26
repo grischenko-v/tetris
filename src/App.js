@@ -97,7 +97,9 @@ class App extends Component {
  animationloop(){
  	let  newGrid = this.hash;
     let f = 0;
+    let frameId;
     let result = this.state.result;
+    frameId = window.requestAnimationFrame( this.animationloop );
     if(this.frameCount < this.fps) {
       this.frameCount++;        
     }
@@ -110,6 +112,11 @@ class App extends Component {
           result += f * 100;          
           this.moveAllDown(f);      
           this.createFigure();
+          if(!this.canMoveDown()){
+          	console.log("Game End");
+         //   frameId = window.cancelAnimationFrame( this.state.frameId );
+          
+          }
         }
         else{
          this.moveDown();      
@@ -118,7 +125,7 @@ class App extends Component {
     this.setState({    
        grid:  newGrid,
        result: result,
-       frameId: window.requestAnimationFrame( this.animationloop )
+       frameId: frameId
     });
  };
 
