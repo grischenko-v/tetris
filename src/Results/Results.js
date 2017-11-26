@@ -7,6 +7,10 @@ class Results extends Component {
     super(props);  
     this.sizeX = 4;
     this.sizeY = 4;
+    this.figure = this.props.nextFigure;
+    this.hash = {};
+    this.hash = this.initHash();
+    
   };
   
   indexToPosition(index){
@@ -15,22 +19,37 @@ class Results extends Component {
     return {X: xFind, Y: yFind, index: xFind + "" + yFind};
   };
 
+  initHash(){
+     let elems = [];
+     let temp;
+     for(let i = 0; i < this.sizeX * this.sizeY; i++){
+       temp = this.indexToPosition(i);
+       elems[temp.index] = false;     	
+     }       
+     return elems;
+  };
+
   createGrid(){   
    let elements = [];  
    let temp;  
+   let figureIndex;
    for(let i = 0; i < this.sizeX * this.sizeY; i++){
-     temp = this.indexToPosition(i);   
-     elements.push(<Element posX = {temp.X} posY = {temp.Y} key = {i} active = {false}/>);
+     temp = this.indexToPosition(i);
+
+     //console.log(temp);
+     //if(this.props.nextFigure !== "") console.log(this.props.nextFigure);
+     elements.push(<Element posX = {temp.X} posY = {temp.Y} key = {i} active = {this.hash[temp.index]}/>);
    }  
    return elements;
  };
 
   render() {  	
-  	const elements = this.createGrid();	
+  	const elements =  this.createGrid();
+
     return (
       <div className = "resultsblock">
          <div className = "resualt">{this.props.result}</div>
-         <div className = "nextfigure_text">Next Figure:</div>
+         <div className = "nextfigure_text">Next Figure: </div>
          <div className = "nextfigure">        
             {elements}
          </div>
