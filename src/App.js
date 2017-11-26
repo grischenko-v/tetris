@@ -103,9 +103,10 @@ class App extends Component {
     }
     else{
     	this.frameCount = 0;                
-         //console.log(this.state.nextFigure);
+         //
         if(!this.state.currentFigure){   
           f = this.checkFullLine();
+          console.log(this.state.nextFigure);
           result += f * 100;          
           this.moveAllDown(f);      
           this.createFigure();
