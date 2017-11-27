@@ -110,10 +110,10 @@ class App extends Component {
          //
         if(!this.state.currentFigure){   
           f = this.checkFullLine();
-          console.log(this.state.nextFigure);
+         
           result += f * 100;          
           this.moveAllDown(f);      
-          this.createFigure();
+          this.createFigure();         
           if(this.state.gameEnd) return;
           if(!this.canMoveDown()){
           	console.log("Game End");           
@@ -187,7 +187,7 @@ class App extends Component {
     let points = [];
     let xPos = 5;
     let yPos = 0;
-    let name = "Line";   
+    let name = "GRight";   
     let coords;    
      for (let i = 0; i < 4; i++) {
       coords = {};
@@ -212,7 +212,7 @@ class App extends Component {
     let points = [];
     let xPos = 5;
     let yPos = 0;
-    let name = "Line"; 
+    let name = "GLeft"; 
     let coords;    
      for (let i = 0; i < 4; i++) {
       coords = {};
@@ -237,7 +237,7 @@ class App extends Component {
     let points = [];
     let xPos = 5;
     let yPos = 0;
-    let name = "Line";  
+    let name = "ZRight";  
     let coords;    
      for (let i = 0; i < 4; i++) {
       coords = {};
@@ -262,7 +262,7 @@ class App extends Component {
     let points = [];
     let xPos = 5;
     let yPos = 0;
-    let name = "Line";
+    let name = "ZLeft";
     let coords;    
      for (let i = 0; i < 4; i++) {
       coords = {};
@@ -287,7 +287,7 @@ class App extends Component {
     let points = [];
     let xPos = 5;
     let yPos = 0;
-    let name = "Line";    
+    let name = "Ep";    
     let coords;    
      for (let i = 0; i < 4; i++) {
       coords = {};
@@ -324,19 +324,23 @@ class App extends Component {
    return figure;
  };
 
+ cloneFigure(obj) {
+    if (null == obj || "object" != typeof obj) return obj;
+    var copy = obj.constructor();
+    for (var attr in obj) {
+        if (obj.hasOwnProperty(attr)) copy[attr] = obj[attr];
+    }
+    return copy;
+};
+
  createFigure(){
    let figurePos;  
    let nextFigurePos;
-   
-   if(!this.state.newFigure){
-     figurePos = this.getRandomFigure();
-     nextFigurePos = this.getRandomFigure();
-   }
-   else{
-    figurePos = nextFigurePos;
-    nextFigurePos = this.getRandomFigure();
-   }
-   
+   if(this.state.nextFigure === "") figurePos = this.getRandomFigure();
+   else figurePos = this.cloneFigure(this.state.nextFigure);
+
+   nextFigurePos = this.getRandomFigure();  
+    
    for (let i = 0; i < figurePos.points.length; i++) this.hash[figurePos.points[i].position.index] = true;
    
    this.setState({    
