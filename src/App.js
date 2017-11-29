@@ -112,7 +112,7 @@ class App extends Component {
           f = this.checkFullLine();
          
           result += f * 100;          
-          this.moveAllDown(f);      
+            
           this.createFigure();         
           if(this.state.gameEnd) return;
           if(!this.canMoveDown()){
@@ -340,7 +340,7 @@ class App extends Component {
    else figurePos = this.cloneFigure(this.state.nextFigure);
 
    nextFigurePos = this.getRandomFigure();  
-    
+
    for (let i = 0; i < figurePos.points.length; i++) this.hash[figurePos.points[i].position.index] = true;
    
    this.setState({    
@@ -373,7 +373,7 @@ class App extends Component {
           this.hash[curLine[j].index] = false;          
         }        
          fullLines++; 
-         
+         this.moveAllDown(lineNum);    
          this.setState({   	 
            grid: this.hash
           });          
@@ -389,13 +389,13 @@ class App extends Component {
      let temp = this.indexToPosition(i);
    	 newHash[temp.index] = this.hash[temp.index];
    } 
-   for (let i = 0; i < this.sizeX * (this.sizeY - lines); i++) {
+   for (let i = 0; i < this.sizeX * (lines); i++) {
      let temp = this.indexToPosition(i);
    	 newHash[temp.index] = false;
    } 		
-   for (let i = 0; i < this.sizeX * (this.sizeY - lines); i++) {
+   for (let i = 0; i < this.sizeX * (lines); i++) {
      curPos = this.indexToPosition(i);
-     nextPos = this.indexToPosition(i + 10 * lines);  
+     nextPos = this.indexToPosition(i + 10);  
      if (this.hash[curPos.index] && this.hash[nextPos.index] !== undefined) {
         newHash[nextPos.index] = true;        
      }
