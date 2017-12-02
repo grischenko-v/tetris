@@ -50,7 +50,7 @@ class App extends Component {
         if(this.canMoveRight()){
           for (let i = 0; i < newFigure.points.length; i++) {      
             this.hash[newFigure.points[i].position.index] = false;       
-            newFigure.points[i].position  = this.indexToPosition(newFigure.points[i].position.X  * 10 + (newFigure.points[i].position.Y + 1));
+            newFigure.points[i].position  = Results.indexToPosition(newFigure.points[i].position.X  * 10 + (newFigure.points[i].position.Y + 1), this.sizeX);
           } 
           for (let i = 0; i < newFigure.points.length; i++)  this.hash[newFigure.points[i].position.index] = true;
           this.setState({   	 
@@ -64,7 +64,7 @@ class App extends Component {
         if(this.canMoveLeft()){
          for (let i = 0; i < newFigure.points.length; i++) {      
            this.hash[newFigure.points[i].position.index] = false;       
-           newFigure.points[i].position  = this.indexToPosition(newFigure.points[i].position.X  * 10 + (newFigure.points[i].position.Y - 1));
+           newFigure.points[i].position  = Results.indexToPosition(newFigure.points[i].position.X  * 10 + (newFigure.points[i].position.Y - 1), this.sizeX);
          } 
          for (let i = 0; i < newFigure.points.length; i++)  this.hash[newFigure.points[i].position.index] = true;
           this.setState({   	 
@@ -148,7 +148,7 @@ class App extends Component {
         default: break;          
       }      
       coords.num = i;
-      coords.position = this.indexToPosition(xPos  + yPos * 10);   
+      coords.position = Results.indexToPosition(xPos  + yPos * 10, this.sizeX);   
       points.push(coords);
      }        
     return {
@@ -173,7 +173,7 @@ class App extends Component {
        default: break;          
       }     
       coords.num = i;
-      coords.position = this.indexToPosition(xPos  + yPos * 10);   
+      coords.position = Results.indexToPosition(xPos  + yPos * 10, this.sizeX);   
       points.push(coords);
      }        
     return {
@@ -198,7 +198,7 @@ class App extends Component {
        default: break;          
       }     
       coords.num = i;
-      coords.position = this.indexToPosition(xPos  + yPos * 10);   
+      coords.position = Results.indexToPosition(xPos  + yPos * 10, this.sizeX);   
       points.push(coords);
      }        
     return {
@@ -223,7 +223,7 @@ class App extends Component {
        default: break;          
       }     
       coords.num = i;
-      coords.position = this.indexToPosition(xPos  + yPos * 10);   
+      coords.position = Results.indexToPosition(xPos  + yPos * 10, this.sizeX);   
       points.push(coords);
      }        
     return {
@@ -248,7 +248,7 @@ class App extends Component {
        default: break;          
       }     
       coords.num = i;
-      coords.position = this.indexToPosition(xPos  + yPos * 10);   
+      coords.position = Results.indexToPosition(xPos  + yPos * 10, this.sizeX);   
       points.push(coords);
      }        
     return {
@@ -273,7 +273,7 @@ class App extends Component {
        default: break;          
       }     
       coords.num = i;
-      coords.position = this.indexToPosition(xPos  + yPos * 10);   
+      coords.position = Results.indexToPosition(xPos  + yPos * 10, this.sizeX);   
       points.push(coords);
      }        
     return {
@@ -298,7 +298,7 @@ class App extends Component {
        default: break;          
       }     
       coords.num = i;
-      coords.position = this.indexToPosition(xPos  + yPos * 10);   
+      coords.position = Results.indexToPosition(xPos  + yPos * 10, this.sizeX);   
       points.push(coords);
      }        
     return {
@@ -322,21 +322,12 @@ class App extends Component {
 
    return figure;
  };
-
- cloneFigure(obj) {
-    if (null == obj || "object" != typeof obj) return obj;
-    var copy = obj.constructor();
-    for (var attr in obj) {
-        if (obj.hasOwnProperty(attr)) copy[attr] = obj[attr];
-    }
-    return copy;
-};
-
+ 
  createFigure(){
    let figurePos;  
    let nextFigurePos;
    if(this.state.nextFigure === "") figurePos = this.getRandomFigure();
-   else figurePos = this.cloneFigure(this.state.nextFigure);
+   else figurePos = Results.cloneFigure(this.state.nextFigure);
 
    nextFigurePos = this.getRandomFigure();  
 
@@ -363,7 +354,7 @@ class App extends Component {
 
       counter++;
      
-      let position = this.indexToPosition(i);
+      let position = Results.indexToPosition(i, this.sizeX);
       if(this.hash[position.index]){
           curLine.push(position);      
       }     
@@ -385,16 +376,16 @@ class App extends Component {
    let newHash = {};
    let nextPos, curPos;       
       for (let i = 0; i < this.sizeX * (this.sizeY); i++) {
-     let temp = this.indexToPosition(i);
+     let temp = Results.indexToPosition(i, this.sizeX);
    	 newHash[temp.index] = this.hash[temp.index];
    } 
    for (let i = 0; i < this.sizeX * (lines); i++) {
-     let temp = this.indexToPosition(i);
+     let temp = Results.indexToPosition(i, this.sizeX);
    	 newHash[temp.index] = false;
    } 		
    for (let i = 0; i < this.sizeX * (lines); i++) {
-     curPos = this.indexToPosition(i);
-     nextPos = this.indexToPosition(i + 10);  
+     curPos = Results.indexToPosition(i, this.sizeX);
+     nextPos = Results.indexToPosition(i + 10, this.sizeX);  
      if (this.hash[curPos.index] && this.hash[nextPos.index] !== undefined) {
         newHash[nextPos.index] = true;        
      }
@@ -416,7 +407,7 @@ class App extends Component {
         let newX = x0 - newFigure.points[i].position.Y + y0;
         let newY = y0 + newFigure.points[i].position.X - x0;
         if(newX > 19 || newX < 0 || newY > 9 || newY < 0 
-           || this.hash[this.indexToPosition(newX * 10 + newY)]) return ;
+           || this.hash[Results.indexToPosition(newX * 10 + newY, this.sizeX)]) return ;
         else{
          newXMas.push(newX);
          newYMas.push(newY);
@@ -427,7 +418,7 @@ class App extends Component {
     	this.hash[this.state.currentFigure.points[i].position.index] = false;       
         
       for(let i = 0; i < newFigure.points.length; i++)
-       	newFigure.points[i].position = this.indexToPosition(newXMas[i] * 10 + newYMas[i]);
+       	newFigure.points[i].position = Results.indexToPosition(newXMas[i] * 10 + newYMas[i], this.sizeX);
       
       for (let i = 0; i < newFigure.points.length; i++) 
     	this.hash[newFigure.points[i].position.index] = true; 
@@ -454,7 +445,7 @@ class App extends Component {
    for (var i = 0; i < this.state.currentFigure.points.length; i++) {
  	 curX = this.state.currentFigure.points[i].position.X;
      curY = this.state.currentFigure.points[i].position.Y;
-     nextPos = this.indexToPosition((curX + 1) * 10 + curY);   
+     nextPos = Results.indexToPosition((curX + 1) * 10 + curY, this.sizeX);   
      if (this.hash[nextPos.index] && !this.isFigurePoint(nextPos)) return false;
   }
   return true;
@@ -467,7 +458,7 @@ class App extends Component {
    for (var i = 0; i < this.state.currentFigure.points.length; i++) {
  	 curX = this.state.currentFigure.points[i].position.X;
      curY = this.state.currentFigure.points[i].position.Y;
-     nextPos = this.indexToPosition(curX  * 10 + curY - 1);   
+     nextPos = Results.indexToPosition(curX  * 10 + curY - 1, this.sizeX);   
      if (this.hash[nextPos.index] && !this.isFigurePoint(nextPos) 
          || (curY - 1) < 0) return false;
   }
@@ -481,7 +472,7 @@ class App extends Component {
    for (var i = 0; i < this.state.currentFigure.points.length; i++) {
  	 curX = this.state.currentFigure.points[i].position.X;
      curY = this.state.currentFigure.points[i].position.Y;
-     nextPos = this.indexToPosition(curX  * 10 + curY + 1);   
+     nextPos = Results.indexToPosition(curX  * 10 + curY + 1, this.sizeX);   
      if (this.hash[nextPos.index] && !this.isFigurePoint(nextPos)
      	|| (curY + 1) > 9) return false;
   }
@@ -519,7 +510,7 @@ class App extends Component {
    if(this.canMoveDown() && maxXIndex < 19){  
       for (let i = 0; i < this.state.currentFigure.points.length; i++) {            
          this.hash[newFigure.points[i].position.index] = false;
-         newFigure.points[i].position  = this.indexToPosition((newFigure.points[i].position.X + 1) * 10 + newFigure.points[i].position.Y);
+         newFigure.points[i].position  = Results.indexToPosition((newFigure.points[i].position.X + 1) * 10 + newFigure.points[i].position.Y, this.sizeX);
       } 
       for (let i = 0; i < newFigure.points.length; i++)  this.hash[newFigure.points[i].position.index] = true;
       this.setState({   	 
@@ -552,23 +543,18 @@ class App extends Component {
      let elems = [];
      let temp;
      for(let i = 0; i < this.sizeX * this.sizeY; i++){
-       temp = this.indexToPosition(i);
+       temp = Results.indexToPosition(i, this.sizeX);
        elems[temp.index] = false;     	
      }       
      return elems;
-  };
- 
-  indexToPosition(index){
-    let xFind = parseInt(index / 10, 10);
-    let yFind = index - xFind * 10;
-    return {X: xFind, Y: yFind, index: xFind + "" + yFind};
-  };
+  }; 
+
  
   createGrid(){   
    let elements = [];  
    let temp;  
    for(let i = 0; i < this.sizeX * this.sizeY; i++){
-     temp = this.indexToPosition(i);   
+     temp = Results.indexToPosition(i, this.sizeX);   
 
      elements.push(<Element posX = {temp.X} posY = {temp.Y} key = {i} active = {this.state.grid[temp.index]}/>);
    }  
