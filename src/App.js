@@ -73,9 +73,10 @@ class App extends Component {
           });
         }
         break;
-      }
-      case 40:  {      
-        this.moveDown();
+      }     
+      case  38:  {           
+        while(this.canMoveDown()) this.moveDown();
+
         break;
       }
       default: break;
@@ -322,7 +323,7 @@ class App extends Component {
 
    return figure;
  };
- 
+
  createFigure(){
    let figurePos;  
    let nextFigurePos;
@@ -442,6 +443,7 @@ class App extends Component {
    let curX;
    let curY; 
    let nextPos;
+   if(!this.state.currentFigure) return;
    for (var i = 0; i < this.state.currentFigure.points.length; i++) {
  	 curX = this.state.currentFigure.points[i].position.X;
      curY = this.state.currentFigure.points[i].position.Y;
