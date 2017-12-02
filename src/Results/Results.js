@@ -9,48 +9,73 @@ class Results extends Component {
     this.sizeY = 4;
     this.figure = this.props.nextFigure;
     this.hash = {};
-    this.hash = this.initHash();
     this.state = {  	
   		grid: this.hash  		
   	};
   };
   
   indexToPosition(index){
-    let xFind = parseInt(index / 10, 10);
-    let yFind = index - xFind * 10;
+    let xFind = parseInt(index / 4, 4);
+    let yFind = index - xFind * 4;
+
     return {X: xFind, Y: yFind, index: xFind + "" + yFind};
   };
 
   initHash(){
      let elems = [];
-     let temp;
-    
+     let temp;    
      for(let i = 0; i < this.sizeX * this.sizeY; i++){
        temp = this.indexToPosition(i);
        elems[temp.index] = false;     	
-     }       
+     }   
      return elems;
   };
+
+
+  updateHash(){
+
+
+  }
+
 
   createGrid(){   
    let elements = [];  
    let temp;  
-   let figureIndex;
-      this.hash = this.initHash();
-  if(this.props.nextFigure !== ""){
-    for (let i = 0; i < this.props.nextFigure.points.length; i++) this.hash[this.props.nextFigure.points[i].position.index] = true;
+   let figureIndex;   
+   let figure = this.cloneFigure(this.props.nextFigure);
+   
 
-    };
+   this.hash = this.initHash(); 
+
+   if(figure) {  
+    for(let i = 0; i < figure.points.length; i++){     
+       let x = figure.points[i].position.X  ;
+       let y = figure.points[i].position.Y - 3;
+       let index =  x + "" + y;
+       this.hash[index] = true;
+     }
+     
+   }
+   
+    
 
    for(let i = 0; i < this.sizeX * this.sizeY; i++){
-     temp = this.indexToPosition(i);
-
-     this.hash[temp.index] = false;
-     //if(this.props.nextFigure !== "" && this.props.nextFigure.) this.hash[temp.index] = true;//console.log(this.props.nextFigure);
+     temp = this.indexToPosition(i);      
      elements.push(<Element posX = {temp.X} posY = {temp.Y} key = {i} active = {this.hash[temp.index]}/>);
    }  
    return elements;
  };
+
+
+cloneFigure(obj) {
+    if (null == obj || "object" != typeof obj) return obj;
+    var copy = obj.constructor();
+    for (var attr in obj) {
+        if (obj.hasOwnProperty(attr)) copy[attr] = obj[attr];
+    }
+    return copy;
+};
+
 
   render() {  	
   	const elements =  this.createGrid();
