@@ -13,26 +13,20 @@ class Results extends Component {
   		grid: this.hash  		
   	};
   };
-  
-  indexToPosition(index){
-    let xFind = parseInt(index / 4, 4);
-    let yFind = index - xFind * 4;
-
-    return {X: xFind, Y: yFind, index: xFind + "" + yFind};
-  };
+   
 
   initHash(){
      let elems = [];
      let temp;    
      for(let i = 0; i < this.sizeX * this.sizeY; i++){
-       temp = this.indexToPosition(i);
+       temp = Results.indexToPosition(i, this.sizeX);
        elems[temp.index] = false;     	
      }   
      return elems;
   };
 
   updateHash(){
-   let figure = this.cloneFigure(this.props.nextFigure);
+   let figure = Results.cloneFigure(this.props.nextFigure);
    if(figure) {  
     for(let i = 0; i < figure.points.length; i++){     
        let x = figure.points[i].position.X  ;
@@ -50,14 +44,14 @@ class Results extends Component {
    this.updateHash();  
 
    for(let i = 0; i < this.sizeX * this.sizeY; i++){
-     temp = this.indexToPosition(i);      
+     temp = Results.indexToPosition(i, this.sizeX);      
      elements.push(<Element posX = {temp.X} posY = {temp.Y} key = {i} active = {this.hash[temp.index]}/>);
    }  
    return elements;
  };
 
 
- cloneFigure(obj) {
+ static cloneFigure(obj) {
     if (null == obj || "object" !== typeof obj) return obj;
     var copy = obj.constructor();
     for (var attr in obj) {
@@ -65,6 +59,13 @@ class Results extends Component {
     }
     return copy;
  };
+
+ static indexToPosition(index, value){
+    let xFind = parseInt(index / value, value);
+    let yFind = index - xFind * value;
+
+    return {X: xFind, Y: yFind, index: xFind + "" + yFind};
+  };
 
   render() {  	
   	const elements =  this.createGrid();
