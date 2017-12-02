@@ -5,7 +5,7 @@ import Element from '../Element/Element';
 class Results extends Component {
   constructor(props){
     super(props);  
-    this.sizeX = 4;
+    this.sizeX = 5;
     this.sizeY = 4;
     this.figure = this.props.nextFigure;
     this.hash = {};
@@ -29,7 +29,7 @@ class Results extends Component {
    let figure = Results.cloneFigure(this.props.nextFigure);
    if(figure) {  
     for(let i = 0; i < figure.points.length; i++){     
-       let x = figure.points[i].position.X  ;
+       let x = (figure.name != "Line") ? figure.points[i].position.X + 1 : figure.points[i].position.X ;
        let y = figure.points[i].position.Y - 3;
        let index =  x + "" + y;
        this.hash[index] = true;
