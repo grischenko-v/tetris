@@ -31,33 +31,23 @@ class Results extends Component {
      return elems;
   };
 
-
   updateHash(){
-
-
-  }
-
-
-  createGrid(){   
-   let elements = [];  
-   let temp;  
-   let figureIndex;   
    let figure = this.cloneFigure(this.props.nextFigure);
-   
-
-   this.hash = this.initHash(); 
-
    if(figure) {  
     for(let i = 0; i < figure.points.length; i++){     
        let x = figure.points[i].position.X  ;
        let y = figure.points[i].position.Y - 3;
        let index =  x + "" + y;
        this.hash[index] = true;
-     }
-     
+     }     
    }
-   
-    
+  };
+
+  createGrid(){   
+   let elements = [];  
+   let temp; 
+   this.hash = this.initHash(); 
+   this.updateHash();  
 
    for(let i = 0; i < this.sizeX * this.sizeY; i++){
      temp = this.indexToPosition(i);      
@@ -67,15 +57,14 @@ class Results extends Component {
  };
 
 
-cloneFigure(obj) {
-    if (null == obj || "object" != typeof obj) return obj;
+ cloneFigure(obj) {
+    if (null == obj || "object" !== typeof obj) return obj;
     var copy = obj.constructor();
     for (var attr in obj) {
         if (obj.hasOwnProperty(attr)) copy[attr] = obj[attr];
     }
     return copy;
-};
-
+ };
 
   render() {  	
   	const elements =  this.createGrid();
