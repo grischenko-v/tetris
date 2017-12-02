@@ -1,13 +1,16 @@
 #### Demo:
+https://grischenko-v.github.io/tetris_build/
 ###### 
 ##
-#### Description: 
+#### Screen: 
 ##
-![screenshot of sample]()
+![screenshot of sample](https://raw.githubusercontent.com/grischenko-v/tetris/master/screen/screen.png)
 ##
 #### Technologies
 ###### - REACT JS
 ###### - HTML5, CSS3
 ##
 #### Browsers support
-###### - Only Chrome!!!
+###### - Chrome
+###### - FF
+###### - IE11
