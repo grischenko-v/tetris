@@ -74,9 +74,12 @@ class App extends Component {
         }
         break;
       }     
-      case  38:  {           
+      case  32:  {           
         while(this.canMoveDown()) this.moveDown();
-
+        break;
+      }
+      case  40:  {           
+        this.moveDown();
         break;
       }
       default: break;
@@ -396,7 +399,7 @@ class App extends Component {
  };
 
  _rotateFigure(e){ 	
- 	if (e.keyCode === 32 && this.state.currentFigure) {
+ 	if (e.keyCode === 38 && this.state.currentFigure) {
   	  let newFigure = this.state.currentFigure;
       let x0 = this.getAverageX(newFigure.points);
       let y0 = this.getAverageY(newFigure.points);    
