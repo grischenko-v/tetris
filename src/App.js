@@ -106,13 +106,12 @@ class App extends Component {
       this.frameCount++;        
     }
     else{
-    	this.frameCount = 0;                
-         //
+    	this.frameCount = 0;
         if(!this.state.currentFigure){   
           f = this.checkFullLine();
          
-          result += f * 100;          
-            
+          result += f * 100;      
+
           this.createFigure();         
           if(this.state.gameEnd) return;
           if(!this.canMoveDown()){
