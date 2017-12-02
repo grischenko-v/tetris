@@ -7,8 +7,7 @@ class App extends Component {
 
   constructor(){
   	super();
-  	this.frameCount = 0;
-  	this.fps = 100;
+  	this.frameCount = 0; 
   	this.sizeX = 10;
   	this.sizeY = 20;
   	this.hash = this.initGrid();
@@ -18,7 +17,8 @@ class App extends Component {
         currentFigure: "",
         nextFigure: "",
         result: 0,
-        gameEnd: false
+        gameEnd: false,
+        fps: 80
   	};    
     this.start = this.start.bind(this);
     this.stop = this.stop.bind(this);
@@ -103,10 +103,11 @@ class App extends Component {
  	let  newGrid = this.hash;
     let f = 0;
     let frameId;
+    let newFps = this.state.fps;
     let result = this.state.result;
     frameId = this.state.gameEnd ? window.cancelAnimationFrame( this.state.frameId ) : window.requestAnimationFrame( this.animationloop );
   
-    if(this.frameCount < this.fps) {
+    if(this.frameCount < this.state.fps) {
       this.frameCount++;        
     }
     else{
@@ -115,7 +116,16 @@ class App extends Component {
           f = this.checkFullLine();
          
           result += f * 100;      
-
+          if(result <= 100) newFps = 80;
+          else if(result <=  500 && result >  100 ) newFps = 70;
+          else if(result <= 1000 && result >  500 ) newFps = 60;
+          else if(result <= 1500 && result > 1000 ) newFps = 50;
+          else if(result <= 2000 && result > 1500 ) newFps = 40;
+          else if(result <= 2500 && result > 2000 ) newFps = 35;
+          else if(result <= 3000 && result > 2500 ) newFps = 30;
+          else if(result <= 3500 && result > 3000 ) newFps = 20;
+          else if(result <= 4000 && result > 3500 ) newFps = 15;
+        
           this.createFigure();         
           if(this.state.gameEnd) return;
           if(!this.canMoveDown()){
@@ -132,7 +142,8 @@ class App extends Component {
     this.setState({    
        grid:  newGrid,
        result: result,
-       frameId: frameId
+       frameId: frameId,
+       fps: newFps
     });
  };
 
