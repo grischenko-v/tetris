@@ -19,7 +19,9 @@ class App extends Component {
         result: 0,
         gameEnd: false,
         fps: 80
-  	};    
+  	};   
+
+
     this.start = this.start.bind(this);
     this.stop = this.stop.bind(this);
     this.animationloop = this.animationloop.bind(this);  
