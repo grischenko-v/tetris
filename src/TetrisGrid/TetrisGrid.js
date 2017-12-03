@@ -14,11 +14,11 @@ class TetrisGrid extends Component {
   	this.state = {  	
   		grid: this.hash,
   		frameId: "",
-        currentFigure: "",
-        nextFigure: "",
-        result: 0,
-        gameEnd: false,
-        fps: 80
+      currentFigure: "",
+      nextFigure: "",
+      result: 0,
+      gameEnd: false,
+      fps: 80
   	};   
 
 
@@ -109,6 +109,7 @@ class TetrisGrid extends Component {
     let result = this.state.result;
     frameId = this.state.gameEnd ? window.cancelAnimationFrame( this.state.frameId ) : window.requestAnimationFrame( this.animationloop );
   
+
     if(this.frameCount < this.state.fps) {
       this.frameCount++;        
     }
@@ -134,18 +135,19 @@ class TetrisGrid extends Component {
           else if(result <= 6500 && result > 6000 ) newFps = 8;
           this.createFigure();         
           if(this.state.gameEnd) return;
-          if(!this.canMoveDown()){
-          	console.log("Game End"); 
-            this.props.history.push('/gameend')          
+          if(!this.canMoveDown()){          
+            this.stop();       
             this.setState({    
                gameEnd: true
               });
+            this.props.history.push('/gameend')   
           }
         }
         else{
          this.moveDown();      
         }  	   	  
     }
+    if(!this.state.gameEnd)
     this.setState({    
        grid:  newGrid,
        result: result,
