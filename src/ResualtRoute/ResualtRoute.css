@@ -37,8 +37,6 @@ ul{
 li{
    text-decoration: none;
    margin: 0 auto;
-   margin-top: 50px;
-   border: 2px solid #999;
+   margin-top: 50px;   
    width: 300px;
-
 }

@@ -25,3 +25,8 @@ h1{
 p{
   color: #666;
 }
+
+.author{
+  color: #555;
+  font-size: 20px;
+}

@@ -22,7 +22,8 @@ class ResualtRoute extends Component {
             <Link to={`/#`}           
             style={{ textDecoration: 'none',
                      color:'#888', 
-                     fontSize: '35px'
+                     fontSize: '35px',
+                     margin: '0 auto' 
                   }}>Main Menu</Link>
           </li>     
          </ul>

@@ -19,15 +19,17 @@ class AboutRoute extends Component {
           <p>Arrow Down - move down.</p>
           <p>Arrow Up - routate figure.</p>
           <p>Space - fast move down.</p>
-          <p>Create by Vladimir Grischenko.</p>
+          <p className = "author">Create by Vladimir Grischenko.</p>
         </div>
 
         <ul>      
           <li>
             <Link to={`/`}           
             style={{ textDecoration: 'none',
-                     color:'#888', 
-                     fontSize: '35px'
+                     color:'#fff', 
+                     fontSize: '35px',
+                     marginTop: '50px',
+                     float: 'left'
                   }}>Back</Link>
           </li>     
         </ul>

@@ -20,21 +20,24 @@ class MainMenu extends Component {
             <Link to={`/game`}           
             style={{ textDecoration: 'none',
                      color:'#888', 
-                     fontSize: '35px'
+                     fontSize: '35px',
+                     margin: '0 auto' 
                   }}>Play</Link>
           </li>
           <li>
             <Link to={``} 
             style={{ textDecoration: 'none',
                      color:'#888',
-                     fontSize: '35px' 
+                     fontSize: '35px',
+                     margin: '0 auto' 
             }}>Resualts</Link>
           </li>
           <li>
             <Link to={`about`} 
             style={{ textDecoration: 'none',
                      color:'#888',
-                     fontSize: '35px' 
+                     fontSize: '35px',
+                     margin: '0 auto' 
             }}>About</Link>
           </li>     
      
