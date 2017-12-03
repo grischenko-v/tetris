@@ -130,6 +130,8 @@ class TetrisGrid extends Component {
           else if(result <= 4500 && result > 4000 ) newFps = 18;
           else if(result <= 5000 && result > 4500 ) newFps = 15;
           else if(result <= 5500 && result > 5000 ) newFps = 13;
+          else if(result <= 6000 && result > 5500 ) newFps = 10;
+          else if(result <= 6500 && result > 6000 ) newFps = 8;
           this.createFigure();         
           if(this.state.gameEnd) return;
           if(!this.canMoveDown()){
