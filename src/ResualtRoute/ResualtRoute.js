@@ -16,22 +16,16 @@ class ResualtRoute extends Component {
     return (
       <div className = "resualts">
            <div className= "score"> Your Score:</div>
-           <ul>      
-          <li>
+           <div className= "score_num"> 2400</div>
+           <ul>
+            <li>
             <Link to={`/#`}           
             style={{ textDecoration: 'none',
                      color:'#888', 
                      fontSize: '35px'
                   }}>Main Menu</Link>
-          </li>
-          <li>
-            <Link to={`/#`}           
-            style={{ textDecoration: 'none',
-                     color:'#888', 
-                     fontSize: '35px'
-                  }}>Resualt Table</Link>
-          </li>
-          
+          </li>     
+         </ul>
         
       </div>
     );

@@ -135,7 +135,8 @@ class TetrisGrid extends Component {
           this.createFigure();         
           if(this.state.gameEnd) return;
           if(!this.canMoveDown()){
-          	console.log("Game End");           
+          	console.log("Game End"); 
+            this.props.history.push('/gameend')          
             this.setState({    
                gameEnd: true
               });
