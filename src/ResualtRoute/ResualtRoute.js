@@ -11,12 +11,18 @@ class ResualtRoute extends Component {
   	};
   };
 
+  submitScore(){
+    console.log(this.props.score);
+  }
+
+
   render() {  	
   	
     return (
       <div className = "resualts">
            <div className= "score"> Your Score:</div>
            <div className= "score_num">{this.props.score}</div>
+           <div className = "nameWrapper"> <input className='name' placeholder='Enter your name' /></div>
            <ul>
             <li>
             <Link to={`/#`}           
@@ -24,7 +30,8 @@ class ResualtRoute extends Component {
                      color:'#888', 
                      fontSize: '35px',
                      margin: '0 auto' 
-                  }}>Main Menu</Link>
+                  }}
+            onClick={this.submitScore()}   >Submit</Link>
           </li>     
          </ul>
         
