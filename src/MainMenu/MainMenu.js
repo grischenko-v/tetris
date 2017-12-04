@@ -28,7 +28,7 @@ class MainMenu extends Component {
           <li>
             <Link to={``} 
             style={{ textDecoration: 'none',
-                     color:'#888',
+                     color:'#aaa',
                      fontSize: '35px',
                      margin: '0 auto' 
             }}>Resualts</Link>
@@ -36,7 +36,7 @@ class MainMenu extends Component {
           <li>
             <Link to={`about`} 
             style={{ textDecoration: 'none',
-                     color:'#888',
+                     color:'#eee',
                      fontSize: '35px',
                      margin: '0 auto' 
             }}>About</Link>

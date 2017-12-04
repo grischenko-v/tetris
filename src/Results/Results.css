@@ -1,9 +1,9 @@
 .resultsblock{
 	width: 200px;
-	height: 589px;
+	height: 585px;
 	background-color: #ccc;	
 	float: right;
-	box-shadow: 3px 3px 0 rgba( 33, 33, 33, 0.65);
+
 }
 .resualt{
 	width: 100px;
