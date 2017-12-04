@@ -1,1 +1,15 @@
+ul{
+	list-style: none;	
+    padding-top: 40px;
+}
+
+li{
+   text-decoration: none; 
+   margin-top: 70px;  
+   width: 270px;
+   height: 100px;
+   margin: 0 auto;  
+   text-align: right;
+}
+
 

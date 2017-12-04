@@ -21,6 +21,7 @@ class MainMenu extends Component {
             style={{ textDecoration: 'none',
                      color:'#888', 
                      fontSize: '35px',
+                     width: '100px',
                      margin: '0 auto' 
                   }}>Play</Link>
           </li>

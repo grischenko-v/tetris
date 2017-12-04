@@ -27,9 +27,8 @@ class ResualtRoute extends Component {
             <li>
             <Link to={`/#`}           
             style={{ textDecoration: 'none',
-                     color:'#888', 
-                     fontSize: '35px',
-                     margin: '0 auto' 
+                     color:'#eee', 
+                     fontSize: '35px'
                   }}
             onClick={this.submitScore()}   >Submit</Link>
           </li>     
