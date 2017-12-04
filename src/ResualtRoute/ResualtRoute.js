@@ -16,7 +16,7 @@ class ResualtRoute extends Component {
     return (
       <div className = "resualts">
            <div className= "score"> Your Score:</div>
-           <div className= "score_num"> 2400</div>
+           <div className= "score_num">{this.props.score}</div>
            <ul>
             <li>
             <Link to={`/#`}           

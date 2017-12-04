@@ -140,6 +140,7 @@ class TetrisGrid extends Component {
             this.setState({    
                gameEnd: true
               });
+            this.props.setScore(this.state.result);
             this.props.history.push('/gameend')   
           }
         }
@@ -431,7 +432,16 @@ class TetrisGrid extends Component {
         let newX = x0 - newFigure.points[i].position.Y + y0;
         let newY = y0 + newFigure.points[i].position.X - x0;
         if(newX > 19 || newX < 0 || newY > 9 || newY < 0 
-           || this.hash[Results.indexToPosition(newX * 10 + newY, this.sizeX)]) return ;
+           || this.hash[Results.indexToPosition(newX * 10 + newY, this.sizeX)]          
+           || this.hash[Results.indexToPosition((newX - 1) * 10 + newY, this.sizeX)]
+           || this.hash[Results.indexToPosition((newX + 1) * 10 + newY, this.sizeX)]
+           || this.hash[Results.indexToPosition(newX  * 10 + newY + 1, this.sizeX)]
+           || this.hash[Results.indexToPosition(newX  * 10 + newY - 1, this.sizeX)]
+           || this.hash[Results.indexToPosition((newX - 1) * 10 + newY -1, this.sizeX)]
+           || this.hash[Results.indexToPosition((newX - 1) * 10 + newY + 1, this.sizeX)]
+           || this.hash[Results.indexToPosition((newX + 1)  * 10 + newY + 1, this.sizeX)]
+           || this.hash[Results.indexToPosition((newX + 1)  * 10 + newY - 1, this.sizeX)]
+           ) return ;
         else{
          newXMas.push(newX);
          newYMas.push(newY);
