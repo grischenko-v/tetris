@@ -4,8 +4,21 @@
    height: 585px;
    margin: 0 auto;
    margin-top: 50px;
+   padding-top: 40px;
    background-color: #ccc; 
    box-shadow: 3px 3px 0 rgba( 33, 33, 33, 0.65);
    border-radius: 4px;
 
+}
+table{
+  
+  border-collapse: collapse; 
+  border: 1px solid grey;
+  width: 400px;
+  height: 400px;
+  margin: 0 auto;
+}
+
+td {
+	border: 1px solid grey;
 }
