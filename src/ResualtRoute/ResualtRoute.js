@@ -11,7 +11,7 @@ class ResualtRoute extends Component {
   	};
   };
 
-  submitScore(){
+  submitScore(e){  
     console.log(this.props.score);
   }
 
@@ -25,7 +25,7 @@ class ResualtRoute extends Component {
            <div className = "nameWrapper"> <input className='name' placeholder='Enter your name' /></div>
            <ul>
             <li>
-            <Link to={`/#`}           
+            <Link to={`/table`}           
             style={{ textDecoration: 'none',
                      color:'#eee', 
                      fontSize: '35px'
