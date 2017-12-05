@@ -431,17 +431,12 @@ class TetrisGrid extends Component {
       for (let i = 0; i < newFigure.points.length; i++) {
         let newX = x0 - newFigure.points[i].position.Y + y0;
         let newY = y0 + newFigure.points[i].position.X - x0;
+        console.log(this.hash[Results.indexToPosition(newX * 10 + newY, this.sizeX).index]);
         if(newX > 19 || newX < 0 || newY > 9 || newY < 0 
-           || this.hash[Results.indexToPosition(newX * 10 + newY, this.sizeX)]          
-           || this.hash[Results.indexToPosition((newX - 1) * 10 + newY, this.sizeX)]
-           || this.hash[Results.indexToPosition((newX + 1) * 10 + newY, this.sizeX)]
-           || this.hash[Results.indexToPosition(newX  * 10 + newY + 1, this.sizeX)]
-           || this.hash[Results.indexToPosition(newX  * 10 + newY - 1, this.sizeX)]
-           || this.hash[Results.indexToPosition((newX - 1) * 10 + newY -1, this.sizeX)]
-           || this.hash[Results.indexToPosition((newX - 1) * 10 + newY + 1, this.sizeX)]
-           || this.hash[Results.indexToPosition((newX + 1)  * 10 + newY + 1, this.sizeX)]
-           || this.hash[Results.indexToPosition((newX + 1)  * 10 + newY - 1, this.sizeX)]
-           ) return ;
+           || (this.hash[Results.indexToPosition(newX * 10 + newY, this.sizeX).index]
+               && !this.isFigurePoint(Results.indexToPosition(newX * 10 + newY, this.sizeX))
+              )           
+          ) return ;
         else{
          newXMas.push(newX);
          newYMas.push(newY);
