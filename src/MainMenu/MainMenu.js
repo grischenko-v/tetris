@@ -26,7 +26,7 @@ class MainMenu extends Component {
                   }}>Play</Link>
           </li>
           <li>
-            <Link to={``} 
+            <Link to={`/table`} 
             style={{ textDecoration: 'none',
                      color:'#aaa',
                      fontSize: '35px',
