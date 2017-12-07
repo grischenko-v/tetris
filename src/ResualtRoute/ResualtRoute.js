@@ -9,10 +9,11 @@ class ResualtRoute extends Component {
     this.state = {  	
   		grid: 1  		
   	};
+    this.submitScore = this.submitScore.bind(this);
   };
 
-  submitScore(e){  
-    console.log(this.props.score);
+  submitScore(e){       
+    this.props.addResualt({name: '123',   score: 3333 });
   }
 
 
@@ -30,7 +31,7 @@ class ResualtRoute extends Component {
                      color:'#eee', 
                      fontSize: '35px'
                   }}
-            onClick={this.submitScore()}   >Submit</Link>
+            onClick={this.submitScore}>Submit</Link>
           </li>     
          </ul>
         
