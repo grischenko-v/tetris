@@ -22,3 +22,13 @@ table{
 td {
 	border: 1px solid grey;
 }
+
+.cell{
+  text-align: center;
+  color: #666;
+}
+
+.number{
+  width: 50px;
+}
+
