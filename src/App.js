@@ -5,8 +5,6 @@ import MainMenu from './MainMenu/MainMenu'
 import ResualtRoute from './ResualtRoute/ResualtRoute'
 import AboutRoute from './AboutRoute/AboutRoute'
 import ResualtTable from './ResualtTable/ResualtTable'
-import Element from './Element/Element'
-
 import './App.css';
 
 class App extends Component {
@@ -39,13 +37,11 @@ class App extends Component {
      let newResualts = this.cloneFigure(this.state.table);
      let newResPosition;
      for (let i = 0; i < 10; i++) {   
-       if(this.state.table[i].score 
-        > newResualt.score )
+       if(this.state.table[i].score > newResualt.score )
            newResualts[i] = this.state.table[i];
        else {
            newResualts[i] = newResualt;
-           newResPosition = i + 1;
-           console.log(newResPosition);
+           newResPosition = i + 1;         
            break;
        }
      }
@@ -55,10 +51,9 @@ class App extends Component {
      this.setState({
              table: newResualts
         });
-
    };
 
-   setScore(value) {
+  setScore(value) {
         this.setState({
             score: value
         });
