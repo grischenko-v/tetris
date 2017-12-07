@@ -7,15 +7,22 @@ class ResualtRoute extends Component {
     super(props);  
     
     this.state = {  	
-  		grid: 1  		
+  		grid: 1,
+      inputValue: ''
   	};
     this.submitScore = this.submitScore.bind(this);
+    this.updateInputValue = this.updateInputValue.bind(this);
   };
+  
+  updateInputValue(e){
+    this.setState({
+      inputValue: e.target.value
+    });
+  };  
 
-  submitScore(e){       
-    this.props.addResualt({name: '123',   score: 3333 });
-  }
-
+  submitScore(e){      
+    this.props.addResualt({name: this.state.inputValue,   score: this.props.score });
+  };
 
   render() {  	
   	
@@ -23,7 +30,7 @@ class ResualtRoute extends Component {
       <div className = "resualts">
            <div className= "score"> Your Score:</div>
            <div className= "score_num">{this.props.score}</div>
-           <div className = "nameWrapper"> <input className='name' placeholder='Enter your name' /></div>
+           <div className = "nameWrapper"> <input className='name' value={this.state.inputValue} onChange={this.updateInputValue} placeholder='Enter your name' /></div>
            <ul>
             <li>
             <Link to={`/table`}           
