@@ -17,11 +17,10 @@ class ResualtTable extends Component {
       let cell = []
      
       for (let idx = 0; idx < 3; idx++){
-        let cellID = `cell${i}-${idx}`;
-        console.log(cellID);
-        if(idx === 0)cell.push(<td className="first" key={cellID} id={cellID}>{i + 1}</td>)
-        else if(idx === 1) cell.push(<td  key={cellID} id={cellID}>{this.props.resualtTable[i].name}</td>)
-        else cell.push(<td  key={cellID} id={cellID}>{this.props.resualtTable[i].score}</td>)
+        let cellID = `cell${i}-${idx}`;       
+        if(idx === 0)cell.push(<td className="cell number" key={cellID} id={cellID}>{i + 1}</td>)
+        else if(idx === 1) cell.push(<td className="cell" key={cellID} id={cellID}>{this.props.resualtTable[i].name}</td>)
+        else cell.push(<td className="cell" key={cellID} id={cellID}>{this.props.resualtTable[i].score}</td>)
       }
       rows.push(<tr key={i} id={rowID}>{cell}</tr>)
     }
