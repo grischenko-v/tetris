@@ -3,11 +3,7 @@ import { Link } from 'react-router-dom'
 import './AboutRoute.css';
 
 class AboutRoute extends Component {
-  constructor(props){
-    super(props);  
-   
-  };
-
+  
   render() {  	
   	
     return (
