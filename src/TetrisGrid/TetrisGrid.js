@@ -103,58 +103,57 @@ class TetrisGrid extends Component {
  
  animationloop(){
  	let  newGrid = this.hash;
-    let f = 0;
-    let frameId;
-    let newFps = this.state.fps;
-    let result = this.state.result;
-    frameId = this.state.gameEnd ? window.cancelAnimationFrame( this.state.frameId ) : window.requestAnimationFrame( this.animationloop );
+  let f = 0;
+  let frameId;
+  let newFps = this.state.fps;
+  let result = this.state.result;
+  frameId = this.state.gameEnd ? window.cancelAnimationFrame( this.state.frameId ) : window.requestAnimationFrame( this.animationloop );
   
-
-    if(this.frameCount < this.state.fps) {
-      this.frameCount++;        
+  if(this.frameCount < this.state.fps) {
+    this.frameCount++;        
+  }
+  else{
+  	this.frameCount = 0;
+    if(!this.state.currentFigure){   
+      f = this.checkFullLine();
+  
+      result += f * 100;      
+      if(result <= 100) newFps = 80;
+      else if(result <=  500 && result >  100 ) newFps = 70;
+      else if(result <= 1000 && result >  500 ) newFps = 60;
+      else if(result <= 1500 && result > 1000 ) newFps = 50;
+      else if(result <= 2000 && result > 1500 ) newFps = 40;
+      else if(result <= 2500 && result > 2000 ) newFps = 35;
+      else if(result <= 3000 && result > 2500 ) newFps = 30;
+      else if(result <= 3500 && result > 3000 ) newFps = 25;
+      else if(result <= 4000 && result > 3500 ) newFps = 20;
+      else if(result <= 4500 && result > 4000 ) newFps = 18;
+      else if(result <= 5000 && result > 4500 ) newFps = 15;
+      else if(result <= 5500 && result > 5000 ) newFps = 13;
+      else if(result <= 6000 && result > 5500 ) newFps = 10;
+      else if(result <= 6500 && result > 6000 ) newFps = 8;
+      this.createFigure();         
+      if(this.state.gameEnd) return;
+      if(!this.canMoveDown()){          
+        this.stop();       
+        this.setState({    
+           gameEnd: true
+        });
+        this.props.setScore(this.state.result);
+        this.props.history.push('/gameend')   
+      }
     }
     else{
-    	this.frameCount = 0;
-        if(!this.state.currentFigure){   
-          f = this.checkFullLine();
-         
-          result += f * 100;      
-          if(result <= 100) newFps = 80;
-          else if(result <=  500 && result >  100 ) newFps = 70;
-          else if(result <= 1000 && result >  500 ) newFps = 60;
-          else if(result <= 1500 && result > 1000 ) newFps = 50;
-          else if(result <= 2000 && result > 1500 ) newFps = 40;
-          else if(result <= 2500 && result > 2000 ) newFps = 35;
-          else if(result <= 3000 && result > 2500 ) newFps = 30;
-          else if(result <= 3500 && result > 3000 ) newFps = 25;
-          else if(result <= 4000 && result > 3500 ) newFps = 20;
-          else if(result <= 4500 && result > 4000 ) newFps = 18;
-          else if(result <= 5000 && result > 4500 ) newFps = 15;
-          else if(result <= 5500 && result > 5000 ) newFps = 13;
-          else if(result <= 6000 && result > 5500 ) newFps = 10;
-          else if(result <= 6500 && result > 6000 ) newFps = 8;
-          this.createFigure();         
-          if(this.state.gameEnd) return;
-          if(!this.canMoveDown()){          
-            this.stop();       
-            this.setState({    
-               gameEnd: true
-              });
-            this.props.setScore(this.state.result);
-            this.props.history.push('/gameend')   
-          }
-        }
-        else{
-         this.moveDown();      
-        }  	   	  
-    }
-    if(!this.state.gameEnd)
+      this.moveDown();      
+    }  	   	  
+  }
+  if(!this.state.gameEnd)
     this.setState({    
        grid:  newGrid,
        result: result,
        frameId: frameId,
        fps: newFps
-    });
+  });
  };
 
  createRect(){
@@ -178,7 +177,7 @@ class TetrisGrid extends Component {
      }        
     return {
     	 name: name,
-         points: points        
+       points: points        
     };
  };
 
@@ -203,7 +202,7 @@ class TetrisGrid extends Component {
      }        
     return {
     	 name: name,
-         points: points        
+       points: points        
     };
  };
   
@@ -228,7 +227,7 @@ class TetrisGrid extends Component {
      }        
     return {
     	 name: name,
-         points: points        
+       points: points        
     };
  }; 
 
@@ -253,7 +252,7 @@ class TetrisGrid extends Component {
      }        
     return {
     	 name: name,
-         points: points        
+       points: points        
     };
  }; 
 
@@ -278,7 +277,7 @@ class TetrisGrid extends Component {
      }        
     return {
     	 name: name,
-         points: points        
+       points: points        
     };
  };
 
@@ -303,7 +302,7 @@ class TetrisGrid extends Component {
      }        
     return {
     	 name: name,
-         points: points        
+       points: points        
     };
  };
  
@@ -328,7 +327,7 @@ class TetrisGrid extends Component {
      }        
     return {
     	 name: name,
-         points: points        
+       points: points        
     };
  };
 
@@ -590,7 +589,7 @@ class TetrisGrid extends Component {
    return elements;
  };
 
- render() {
+  render() {
    const elements = this.createGrid();	
    return (
    	<div className="main">
@@ -600,7 +599,7 @@ class TetrisGrid extends Component {
      <Results result = {this.state.result} nextFigure = {this.state.nextFigure}/>
      </div>
    );
- };
+  };
 }
 
 export default TetrisGrid;
