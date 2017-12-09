@@ -10,54 +10,54 @@ import './App.css';
 class App extends Component {
 
   constructor(props) {
-        super(props);        
+    super(props);        
 
-        let initialResualts = {
-           0: {name: 'andy',   score: 10000 },
-           1: {name: 'robert', score:  9000 },
-           2: {name: 'kate',   score:  8000 },
-           3: {name: 'tom',    score:  7000 },
-           4: {name: 'bobby',  score:  6000 },
-           5: {name: 'felics', score:  5000 },
-           6: {name: 'men1006',score:  4000 },
-           7: {name: 'lola',   score:  3000 },
-           8: {name: 'asert',  score:  2000 },
-           9: {name: 'wally',  score:  1000 }
-        };
-       
-        this.state = {
-            score: 0,
-            table: initialResualts
-        };
-        this.setScore = this.setScore.bind(this);
-        this.addResualt = this.addResualt.bind(this);
+    let initialResualts = {
+         0: {name: 'andy',   score:  8000 },
+         1: {name: 'robert', score:  7500 },
+         2: {name: 'kate',   score:  7000 },
+         3: {name: 'tom',    score:  6500 },
+         4: {name: 'bobby',  score:  6000 },
+         5: {name: 'felics', score:  5000 },
+         6: {name: 'kate',   score:  4000 },
+         7: {name: 'lola',   score:  3000 },
+         8: {name: 'asert',  score:  2000 },
+         9: {name: 'wally',  score:  1000 }
     };
+    
+    this.state = {
+      score: 0,
+      table: initialResualts
+    };
+    this.setScore = this.setScore.bind(this);
+   this.addResualt = this.addResualt.bind(this);
+  };
 
-   addResualt(newResualt){     
-     let newResualts = this.cloneFigure(this.state.table);
-     let newResPosition;
-     for (let i = 0; i < 10; i++) {   
-       if(this.state.table[i].score > newResualt.score )
-           newResualts[i] = this.state.table[i];
-       else {
-           newResualts[i] = newResualt;
-           newResPosition = i + 1;         
-           break;
-       }
+  addResualt(newResualt){     
+   let newResualts = this.cloneFigure(this.state.table);
+   let newResPosition;
+   for (let i = 0; i < 10; i++) {   
+     if(this.state.table[i].score > newResualt.score )
+       newResualts[i] = this.state.table[i];
+     else {
+       newResualts[i] = newResualt;
+       newResPosition = i + 1;         
+       break;
      }
-     for (let i = newResPosition; i < 10; i++) {
-        newResualts[i] = this.state.table[i - 1];
-     }
-     this.setState({
-             table: newResualts
-        });
-   };
+   }
+   for (let i = newResPosition; i < 10; i++) {
+     newResualts[i] = this.state.table[i - 1];
+   }
+   this.setState({
+      table: newResualts
+   });
+  };
 
   setScore(value) {
-        this.setState({
-            score: value
-        });
-    };
+    this.setState({
+        score: value
+    });
+  };
 
 
   cloneFigure(obj) {
@@ -67,14 +67,12 @@ class App extends Component {
         if (obj.hasOwnProperty(attr)) copy[attr] = obj[attr];
     }
     return copy;
- };
+  };
 
- render() { 
+  render() { 
    return (
    	<div>   
    	<Switch>
-
-
       <Route exact path='/' component={MainMenu}/>
       <Route path='/game' exact render={(props) => (<TetrisGrid setScore={this.setScore} {...props}/>)}/>
       <Route path='/gameend' exact render={(props) => (<ResualtRoute score={this.state.score} addResualt={this.addResualt} {...props}/>)} />  
@@ -83,7 +81,7 @@ class App extends Component {
     </Switch>    
     </div>
    );
- };
-}
+   };
+  }
 
 export default App;
