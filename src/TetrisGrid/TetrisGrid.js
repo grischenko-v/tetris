@@ -429,7 +429,7 @@ class TetrisGrid extends Component {
       let newYMas = [];
 
       for (let i = 0; i < newFigure.points.length; i++) {
-        let newX = x0 - newFigure.points[i].position.Y + y0;
+        let newX = x0 - newFigure.points[i].position.Y + y0 - 1;
         let newY = y0 + newFigure.points[i].position.X - x0;       
         if(newX > 19 || newX < 0 || newY > 9 || newY < 0 
            || (this.hash[Results.indexToPosition(newX * 10 + newY, this.sizeX).index]
