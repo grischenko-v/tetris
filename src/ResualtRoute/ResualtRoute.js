@@ -30,7 +30,7 @@ class ResualtRoute extends Component {
       <div className = "resualts">
            <div className= "score"> Your Score:</div>
            <div className= "score_num">{this.props.score}</div>
-           <div className = "nameWrapper"> <input className='name' value={this.state.inputValue} onChange={this.updateInputValue} placeholder='Enter your name' /></div>
+           <div className = "nameWrapper"> <input autoFocus className='name' value={this.state.inputValue} onChange={this.updateInputValue} placeholder='Enter your name' /></div>
            <ul>
             <li>
             <Link to={`/table`}           
