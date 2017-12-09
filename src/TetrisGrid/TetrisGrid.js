@@ -383,7 +383,7 @@ class TetrisGrid extends Component {
       if(this.hash[position.index]){
           curLine.push(position);      
       }     
-      if(curLine.length > 9){        
+      if(curLine.length === 10){        
         for (let j = 0; j < curLine.length; j++) {
           this.hash[curLine[j].index] = false;          
         }        
