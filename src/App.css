@@ -12,4 +12,11 @@ li{
    text-align: right;
 }
 
-
+.switch-wrapper {
+  position: relative;
+}
+ 
+.switch-wrapper > div {  
+  position: absolute;
+  left: 35%;
+}

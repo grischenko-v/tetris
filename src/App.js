@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { Switch, Route } from 'react-router-dom'
-import TetrisGrid from './TetrisGrid/TetrisGrid'
-import MainMenu from './MainMenu/MainMenu'
-import ResualtRoute from './ResualtRoute/ResualtRoute'
-import AboutRoute from './AboutRoute/AboutRoute'
-import ResualtTable from './ResualtTable/ResualtTable'
+import { Switch, Route } from 'react-router-dom';
+import { AnimatedSwitch } from 'react-router-transition';
+import TetrisGrid from './TetrisGrid/TetrisGrid';
+import MainMenu from './MainMenu/MainMenu';
+import ResualtRoute from './ResualtRoute/ResualtRoute';
+import AboutRoute from './AboutRoute/AboutRoute';
+import ResualtTable from './ResualtTable/ResualtTable';
 import './App.css';
 
 class App extends Component {
@@ -71,14 +72,18 @@ class App extends Component {
 
   render() { 
    return (
-   	<div>   
-   	<Switch>
-      <Route exact path='/' component={MainMenu}/>
-      <Route path='/game' exact render={(props) => (<TetrisGrid setScore={this.setScore} {...props}/>)}/>
-      <Route path='/gameend' exact render={(props) => (<ResualtRoute score={this.state.score} addResualt={this.addResualt} {...props}/>)} />  
-      <Route path='/about' component={AboutRoute}/>
-      <Route path='/table' exact render={(props) => (<ResualtTable resualtTable={this.state.table} {...props}/>)} />         
-    </Switch>    
+   	<div>     
+   	  <AnimatedSwitch
+        atEnter={{ opacity: 0 }}
+        atLeave={{ opacity: 0 }}
+        atActive={{ opacity: 1 }}
+        className="switch-wrapper">
+        <Route exact path='/' component={MainMenu}/>
+        <Route path='/game' exact render={(props) => (<TetrisGrid setScore={this.setScore} {...props}/>)}/>
+        <Route path='/gameend' exact render={(props) => (<ResualtRoute score={this.state.score} addResualt={this.addResualt} {...props}/>)} />  
+        <Route path='/about' component={AboutRoute}/>
+        <Route path='/table' exact render={(props) => (<ResualtTable resualtTable={this.state.table} {...props}/>)} />         
+      </AnimatedSwitch>     
     </div>
    );
    };
