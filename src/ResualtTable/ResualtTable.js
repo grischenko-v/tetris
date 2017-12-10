@@ -3,12 +3,7 @@ import { Link } from 'react-router-dom'
 import './ResualtTable.css';
 
 class ResualtTable extends Component {
-  constructor(props){
-    super(props);   
-    this.posX = this.props.posX;
-    this.posY = this.props.posY;      
-  };
-     
+       
   render() {  
     let rows = [];	
      
