@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import { AnimatedSwitch } from 'react-router-transition';
 import TetrisGrid from './TetrisGrid/TetrisGrid';
 import MainMenu from './MainMenu/MainMenu';
@@ -11,9 +11,13 @@ import './App.css';
 class App extends Component {
 
   constructor(props) {
-    super(props);        
+    super(props);   
+    
+    let initialResualts = JSON.parse(localStorage.getItem('resualtTable')); 
 
-    let initialResualts = {
+    if(initialResualts === null)
+      initialResualts = 
+    {
          0: {name: 'andy',   score:  8000 },
          1: {name: 'robert', score:  7500 },
          2: {name: 'kate',   score:  7000 },
@@ -49,6 +53,7 @@ class App extends Component {
    for (let i = newResPosition; i < 10; i++) {
      newResualts[i] = this.state.table[i - 1];
    }
+   localStorage.setItem('resualtTable', JSON.stringify(newResualts));
    this.setState({
       table: newResualts
    });
