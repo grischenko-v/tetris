@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import Element from '../Element/Element'
-import Results from '../Results/Results'
+import Element from '../Element/Element';
+import Results from '../Results/Results';
+import {getRandomFigure} from '../FigureFactory/FigureFactory';
 import './TetrisGrid.css';
 
 class TetrisGrid extends Component {
@@ -156,204 +157,15 @@ class TetrisGrid extends Component {
   });
  };
 
- createRect(){
-    let points = [];
-    let xPos = 4;
-    let yPos = 0;
-    let name = "Rect";
-    let coords;    
-     for (let i = 0; i < 4; i++) {
-      coords = {};
-      switch(i){
-        case 0  :                 break;
-        case 1  : 
-        case 3  : xPos++;         break;
-        case 2  : xPos--; yPos++; break;  
-        default: break;          
-      }      
-      coords.num = i;
-      coords.position = Results.indexToPosition(xPos  + yPos * 10, this.sizeX);   
-      points.push(coords);
-     }        
-    return {
-    	 name: name,
-       points: points        
-    };
- };
-
- createLine(){
-    let points = [];
-    let xPos = 5;
-    let yPos = 0;
-    let name = "Line";   
-    let coords;    
-     for (let i = 0; i < 4; i++) {
-      coords = {};
-      switch(i){
-        case 0  :         break;           
-        case 1  : yPos++; break;
-        case 2  : 
-        case 3  : yPos++; break;  
-       default: break;          
-      }     
-      coords.num = i;
-      coords.position = Results.indexToPosition(xPos  + yPos * 10, this.sizeX);   
-      points.push(coords);
-     }        
-    return {
-    	 name: name,
-       points: points        
-    };
- };
-  
-  createGRight(){
-    let points = [];
-    let xPos = 5;
-    let yPos = 0;
-    let name = "GRight";   
-    let coords;    
-     for (let i = 0; i < 4; i++) {
-      coords = {};
-      switch(i){
-        case 0  :                 break;           
-        case 1  : xPos++;         break;
-        case 2  : xPos--; yPos++; break;
-        case 3  : yPos++;         break;  
-       default: break;          
-      }     
-      coords.num = i;
-      coords.position = Results.indexToPosition(xPos  + yPos * 10, this.sizeX);   
-      points.push(coords);
-     }        
-    return {
-    	 name: name,
-       points: points        
-    };
- }; 
-
-  createGLeft(){
-    let points = [];
-    let xPos = 5;
-    let yPos = 0;
-    let name = "GLeft"; 
-    let coords;    
-     for (let i = 0; i < 4; i++) {
-      coords = {};
-      switch(i){
-        case 0  :                 break;           
-        case 1  : xPos--;         break;
-        case 2  : xPos++; yPos++; break;
-        case 3  : yPos++;         break;  
-       default: break;          
-      }     
-      coords.num = i;
-      coords.position = Results.indexToPosition(xPos  + yPos * 10, this.sizeX);   
-      points.push(coords);
-     }        
-    return {
-    	 name: name,
-       points: points        
-    };
- }; 
-
- createZRight(){
-    let points = [];
-    let xPos = 5;
-    let yPos = 0;
-    let name = "ZRight";  
-    let coords;    
-     for (let i = 0; i < 4; i++) {
-      coords = {};
-      switch(i){
-        case 0  :                          break;           
-        case 1  : yPos++;                  break;
-        case 2  : xPos--;                  break;
-        case 3  : yPos--; xPos = xPos + 2; break;  
-       default: break;          
-      }     
-      coords.num = i;
-      coords.position = Results.indexToPosition(xPos  + yPos * 10, this.sizeX);   
-      points.push(coords);
-     }        
-    return {
-    	 name: name,
-       points: points        
-    };
- };
-
- createZLeft(){
-    let points = [];
-    let xPos = 5;
-    let yPos = 0;
-    let name = "ZLeft";
-    let coords;    
-     for (let i = 0; i < 4; i++) {
-      coords = {};
-      switch(i){
-        case 0  :                          break;           
-        case 1  : yPos++;                  break;
-        case 2  : xPos++;                  break;
-        case 3  : yPos--; xPos = xPos - 2; break;  
-       default: break;          
-      }     
-      coords.num = i;
-      coords.position = Results.indexToPosition(xPos  + yPos * 10, this.sizeX);   
-      points.push(coords);
-     }        
-    return {
-    	 name: name,
-       points: points        
-    };
- };
  
- createEp(){
-    let points = [];
-    let xPos = 5;
-    let yPos = 0;
-    let name = "Ep";    
-    let coords;    
-     for (let i = 0; i < 4; i++) {
-      coords = {};
-      switch(i){
-        case 0  :                 break;           
-        case 1  : xPos++;         break;
-        case 2  : xPos--; yPos++; break;
-        case 3  : yPos--; xPos--; break;  
-       default: break;          
-      }     
-      coords.num = i;
-      coords.position = Results.indexToPosition(xPos  + yPos * 10, this.sizeX);   
-      points.push(coords);
-     }        
-    return {
-    	 name: name,
-       points: points        
-    };
- };
-
- getRandomFigure(){
-   let figure;  
-   switch(Math.floor(Math.random() * 7)){
-     case 0 : figure = this.createRect();   break;      
-     case 1 : figure = this.createLine();   break;    
-     case 2 : figure = this.createGRight(); break; 
-     case 3 : figure = this.createGLeft();  break; 
-     case 4 : figure = this.createZRight(); break; 
-     case 5 : figure = this.createZLeft();  break;
-     case 6 : figure = this.createEp();     break; 
-     default: break; 
-   };  
-
-   return figure;
- };
 
  createFigure(){
    let figurePos;  
    let nextFigurePos;
-   if(this.state.nextFigure === "") figurePos = this.getRandomFigure();
+   if(this.state.nextFigure === "") figurePos = getRandomFigure(this.sizeX);
    else figurePos = Results.cloneFigure(this.state.nextFigure);
 
-   nextFigurePos = this.getRandomFigure();  
+   nextFigurePos = getRandomFigure(this.sizeX);  
 
    for (let i = 0; i < figurePos.points.length; i++) this.hash[figurePos.points[i].position.index] = true;
    
