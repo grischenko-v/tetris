@@ -1,4 +1,7 @@
 import Results from '../Results/Results';
+
+
+
 function createRect(sizeX){
     let points = [];
     let xPos = 4;

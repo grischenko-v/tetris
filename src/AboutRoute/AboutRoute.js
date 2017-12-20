@@ -13,9 +13,9 @@ class AboutRoute extends Component {
           <p>Arrow Left - move left.</p>
           <p>Arrow Right - move right.</p>
           <p>Arrow Down - move down.</p>
-          <p>Arrow Up - routate figure.</p>
+          <p>Arrow Up - rotate figure.</p>
           <p>Space - fast move down.</p>
-          <p className = "author">Create by Vladimir Grischenko.</p>
+          <p className = "author">Created by Vladimir Grischenko.</p>
         </div>
 
         <ul>      
